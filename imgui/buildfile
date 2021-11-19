@@ -2,18 +2,39 @@ intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 #import xxxx_libs += libhello%lib{hello}
 
-lib{imgui}: {hxx cxx}{**} $impl_libs $intf_libs
+./: liba{imgui}: {hxx cxx}{*}
 
+# Big switch statement here for backends
+if($pfb == "glfw")
+{
+  import intf_libs += glfw%lib{glfw}
+}
+if($rnb == "opengl2" || $rnb == "opengl3")
+{
+  liba{imgui}: cxx.libs += -lGL
+  liba{imgui}: cxx.export.libs += -lGL
+}
+elif($rnb == "vulkan")
+{
+  liba{imgui}: cxx.libs += -lvulkan
+  liba{imgui}: cxx.export.libs += -lvulkan
+  cxx.poptions += -DVK_PROTOTYPES
+}
+
+if($usehlframworkbackend)
+  liba{imgui}: {hxx cxx}{backends/imgui_impl_$hlf} $impl_libs $intf_libs
+else
+  liba{imgui}: {hxx cxx}{backends/imgui_impl_$pfb backends/imgui_impl_$rnb} $impl_libs $intf_libs
 # Build options.
 #
-cxx.poptions =+ "-I$out_root" "-I$src_root"
+cxx.poptions =+ "-I$out_base" "-I$src_base" "-I$src_base/backends"
 
 # Export options.
 #
-lib{imgui}:
+liba{imgui}:
 {
-  cxx.export.poptions = "-I$out_root" "-I$src_root"
-  cxx.export.libs = $intf_libs
+  cxx.export.poptions = "-I$out_base" "-I$src_base" "-I$src_base/backends"
+  cxx.export.libs += $intf_libs
 }
 
 hxx{*}:

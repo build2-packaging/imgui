@@ -1,5 +1,5 @@
 : 1
-name: imgui-examples
+name: imgui
 version: 1.86.0-a.0.z
 summary: imgui C++ library
 license: MIT
@@ -10,3 +10,4 @@ email: swat.somebug@gmail.com
 depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
 #depends: libhello ^1.0.0
+depends: glfw

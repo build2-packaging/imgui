@@ -1,0 +1,8 @@
+: nulltest
+$* &imgui.ini >>~%EOM%
+%(
+%NewFrame\(\).*%
+%)+
+DestroyContext()
+EOM
+

@@ -1,7 +1,0 @@
-import impl_libs = imgui%lib{imgui}
-
-# Null
-# exe{null}: example_null/cxx{main} $impl_libs
-
-# Basic demo
-exe{basics}: basic/cxx{imgui_demo} example_null/cxx{main} $impl_libs

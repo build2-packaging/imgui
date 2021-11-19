@@ -1,0 +1,13 @@
+import impl_libs = liba{imgui}
+
+# Null
+# exe{null}: example_null/cxx{main} $impl_libs
+
+# Basic demo
+./: exe{basics}: basic/cxx{imgui_demo} example_null/cxx{main} $impl_libs testscript
+
+
+# Build only necessary sample
+./: exe{$pfb-$rnb}: basic/cxx{imgui_demo} example_"$pfb"_"$rnb"/cxx{main} $impl_libs
+
+exe{*}: test = true

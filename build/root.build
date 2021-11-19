@@ -16,3 +16,15 @@ hxx{*}: cxx.importable = true
 # The test target for cross-testing (running tests under Wine, etc).
 #
 test.target = $cxx.target
+
+
+# Configuration variables
+config [string] config.imgui.platformbackend ?= "glfw"
+config [string] config.imgui.renderbackend ?= "opengl3"
+config [string] config.imgui.hlframworkbackend ?= ""
+
+pfb = $config.imgui.platformbackend
+rnb = $config.imgui.renderbackend
+hlf = $config.imgui.hlframworkbackend
+
+usehlframworkbackend = ($hlf != "")

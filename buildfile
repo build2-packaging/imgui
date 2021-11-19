@@ -1,2 +1,4 @@
-import pkgs = {imgui*/}
-./: $pkgs
+./: {*/ -build/ -upstream/}
+
+# Don't install tests
+tests/: install = false
