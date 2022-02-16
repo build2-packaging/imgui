@@ -4,39 +4,85 @@ impl_libs = # Implementation dependencies.
 sys_libs = 
 
 # Big switch statement here for linking with libs and dependencies
-if($pfb == "glfw")
+switch $pfb 
 {
-  import intf_libs += glfw%lib{glfw}
-}
-elif($pfb == "osx")
-{
-  sys_libs += -framework AppKit -framework ModelIO
+  case 'glfw'
+    import intf_libs += glfw%lib{glfw}
+  case 'osx'
+    sys_libs += -framework AppKit -framework ModelIO
 }
 
-if($rnb == "opengl2" || $rnb == "opengl3")
+switch $rnb: path.match
 {
-  switch $tcls,$tsys: path.match
+  case 'opengl?'
   {
-    case 'linux'
+    switch $tcls: path.match
     {
-      sys_libs += -lGL
-    }
-    case 'macos'
-    {
-      sys_libs += -framework OpenGL
+      case '*win*'
+      {
+        sys_libs += opengl32.lib
+      }
+      case 'linux'
+      {
+        sys_libs += -lGL
+      }
+      case 'macos'
+      {
+        sys_libs += -framework OpenGL
+      }
     }
   }
+
+  case 'vulkan'
+  {
+    sys_libs += -lvulkan
+    cxx.poptions += -DVK_PROTOTYPES
+  }
+
+  case 'metal'
+    sys_libs += -framework Metal -framework MetalKit
+
+  case 'dx9'
+    sys_libs += dxgi.lib d3d9.lib
+
+  case 'dx10'
+    sys_libs += dxgi.lib d3d10.lib
+
+  case 'dx11'
+    sys_libs += dxgi.lib d3d11.lib
+
+  case 'dx12'
+    sys_libs += dxgi.lib d3d12.lib
 }
-elif($rnb == "vulkan")
-{
-  liba{imgui}: cxx.libs += -lvulkan
-  liba{imgui}: cxx.export.libs += -lvulkan
-  cxx.poptions += -DVK_PROTOTYPES
-}
-elif($rnb == "metal")
-{
-  sys_libs += -framework Metal -framework MetalKit
-}
+
+# if($rnb == "opengl2" || $rnb == "opengl3")
+# {
+#   switch $tcls: path.match
+#   {
+#     case '*win*'
+#     {
+#       sys_libs += opengl32.lib
+#     }
+#     case 'linux'
+#     {
+#       sys_libs += -lGL
+#     }
+#     case 'macos'
+#     {
+#       sys_libs += -framework OpenGL
+#     }
+#   }
+# }
+# elif($rnb == "vulkan")
+# {
+#   liba{imgui}: cxx.libs += -lvulkan
+#   liba{imgui}: cxx.export.libs += -lvulkan
+#   cxx.poptions += -DVK_PROTOTYPES
+# }
+# elif($rnb == "metal")
+# {
+#   sys_libs += -framework Metal -framework MetalKit
+# }
 
 
 # Source file control

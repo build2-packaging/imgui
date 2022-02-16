@@ -8,6 +8,7 @@
 .vscode/
 .idea/
 **/*.swp
+.ccls-cache
 
 # Local default options files.
 #
