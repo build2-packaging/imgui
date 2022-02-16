@@ -6,8 +6,40 @@ import impl_libs = liba{imgui}
 # Basic demo
 ./: exe{basics}: basic/cxx{imgui_demo} example_null/cxx{main} $impl_libs testscript
 
-
 # Build only necessary sample
-./: exe{$pfb-$rnb}: basic/cxx{imgui_demo} example_"$pfb"_"$rnb"/cxx{main} $impl_libs
+# Folder naming is different when selecting osx => apple used
+# Keep exe{} naming consistant for the time being
+./: exe{$pfb-$rnb}: basic/cxx{imgui_demo} $impl_libs
+exe{$pfb-$rnb}: example_"$pfb"_"$rnb"/cxx{main} : include = ($pfb != 'osx' && $rnb != 'metal')
+
+exe{$pfb-$rnb}: obje{example_apple_"$rnb"/main.a.o} : include = ($pfb == 'osx')
+obje{example_apple_"$rnb"/main.a.o}: file{example_apple_"$rnb"/main.mm} $impl_libs
+{{
+   lib_poptions = $cxx.lib_poptions($<[1], obje) 
+   depdb hash $lib_poptions
+   diag objective-c ($<[0])
+   poptions = $cxx.options $cc.poptions
+   poptions += $lib_poptions
+   $cxx.path $poptions $cxx.coptions $cc.coptions\
+   -c $path($<[0]) -o $path($>)
+}}
+
+exe{$pfb-$rnb}: obje{example_"$pfb"_metal/main.a.o} : include = ($pfb != 'osx' && $rnb == 'metal')
+obje{example_"$pfb"_metal/main.a.o}: file{example_"$pfb"_metal/main.mm} $impl_libs
+{{
+   lib_poptions = $cxx.lib_poptions($<[1], obje) 
+   depdb hash $lib_poptions
+   diag objective-c ($<[0])
+   poptions = $cxx.options $cc.poptions
+   poptions += $lib_poptions
+   $cxx.path $poptions $cxx.coptions $cc.coptions\
+   -c $path($<[0]) -o $path($>)
+}}
+
+if($rnb == 'metal')
+  cxx.libs += -framework CoreVideo -framework QuartzCore
+
+
+
 
 exe{*}: test = true
