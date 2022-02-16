@@ -1,6 +1,7 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 #import xxxx_libs += libhello%lib{hello}
+sys_libs = 
 
 ./: liba{imgui}: {hxx cxx}{*}
 
@@ -11,8 +12,17 @@ if($pfb == "glfw")
 }
 if($rnb == "opengl2" || $rnb == "opengl3")
 {
-  liba{imgui}: cxx.libs += -lGL
-  liba{imgui}: cxx.export.libs += -lGL
+  switch $tcls,$tsys: path.match
+  {
+    case 'linux'
+    {
+      sys_libs += -lGL
+    }
+    case 'macos'
+    {
+      sys_libs += -framework OpenGL
+    }
+  }
 }
 elif($rnb == "vulkan")
 {
@@ -28,13 +38,14 @@ else
 # Build options.
 #
 cxx.poptions =+ "-I$out_base" "-I$src_base" "-I$src_base/backends"
+cxx.libs += $sys_libs
 
 # Export options.
 #
 liba{imgui}:
 {
   cxx.export.poptions = "-I$out_base" "-I$src_base" "-I$src_base/backends"
-  cxx.export.libs += $intf_libs
+  cxx.export.libs += $intf_libs $sys_libs
 }
 
 hxx{*}:

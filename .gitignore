@@ -3,6 +3,12 @@
 # Imgui output
 **/imgui.ini
 
+# IDE support
+.vs/
+.vscode/
+.idea/
+**/*.swp
+
 # Local default options files.
 #
 .build2/local/

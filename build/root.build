@@ -17,6 +17,10 @@ hxx{*}: cxx.importable = true
 #
 test.target = $cxx.target
 
+# Class and system
+tcls = $cc.target.class
+tsys = $cc.target.system
+
 
 # Configuration variables
 config [string] config.imgui.platformbackend ?= "glfw"
