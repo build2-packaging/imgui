@@ -17,3 +17,14 @@
 # Use `binary` to make sure certain files are never auto-detected as text.
 #
 #*.png binary
+
+# Adding folder symlink attributates
+imgui/backends symlink=dir
+tests/example_null symlink=dir
+tests/example_apple_metal symlink=dir
+tests/example_glfw_opengl2 symlink=dir
+tests/example_glfw_opengl3 symlink=dir
+tests/example_win32_directx9 symlink=dir
+tests/example_win32_directx10 symlink=dir
+tests/example_win32_directx11 symlink=dir
+tests/example_win32_directx12 symlink=dir
