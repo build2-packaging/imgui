@@ -22,6 +22,7 @@
 imgui/backends symlink=dir
 tests/example_null symlink=dir
 tests/example_apple_metal symlink=dir
+tests/example_apple_opengl2 symlink=dir
 tests/example_glfw_opengl2 symlink=dir
 tests/example_glfw_opengl3 symlink=dir
 tests/example_glfw_vulkan symlink=dir
