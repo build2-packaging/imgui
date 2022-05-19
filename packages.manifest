@@ -1,0 +1,12 @@
+: 1
+location: imgui/
+:
+location: imgui-platform-glfw/
+:
+location: imgui-platform-osx/
+:
+location: imgui-render-metal/
+:
+location: imgui-render-opengl2/
+:
+location: imgui-render-opengl3/

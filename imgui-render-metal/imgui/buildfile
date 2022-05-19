@@ -1,0 +1,88 @@
+intf_libs = # Interface dependencies.
+import intf_libs += imgui%lib{imgui}
+intf_libs += -framework Metal -framework MetalKit
+impl_libs = # Implementation dependencies.
+
+lib{imgui-render-metal}: {hxx cxx}{**} $impl_libs $intf_libs
+
+define mm: file
+mm{*}: extension = mm
+
+objcxx_files = **.mm
+objcxx_files = $regex.apply($objcxx_files,'(.+)\.mm','\1')
+
+[rule_hint=cxx] libul{imgui-render-metal-meta}: $impl_libs $intf_libs
+
+for n: $objcxx_files
+{
+    obja{$(n).a.o}: mm{$n}
+    objs{$(n).so.o}: mm{$n}
+}
+
+liba{imgui-render-metal}: obja{$regex.apply($objc_files,'(.+)','\1.a.o')}
+libs{imgui-render-metal}: objs{$regex.apply($objc_files,'(.+)','\1.so.o')}
+
+liba{imgui-render-metal}: obja{$regex.apply($objcxx_files,'(.+)','\1.a.o')}
+libs{imgui-render-metal}: objs{$regex.apply($objcxx_files,'(.+)','\1.so.o')}
+
+obja{~'/(.*).a/'}: mm{~'/\1/'} libua{imgui-render-metal-meta}
+{{
+    dep_poptions = $cxx.lib_poptions(libua{imgui-render-metal-meta}, obja)
+    depdb hash $dep_poptions
+    depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
+                 --what=header --default-type=h \
+                 --update-exclude libua{imgui-render-metal-meta} \
+                 -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
+                    $cc.coptions $cxx.coptions $cxx.mode -M -MG $path($<[0])
+    diag obj-c++ ($<[0])
+    $cxx.path $cc.poptions $cxx.poptions $dep_poptions    \
+              $cc.coptions $cxx.coptions $cxx.mode        \
+              -o $path($>) -c -x objective-c++ $path($<[0])
+}}
+objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-render-metal-meta}
+{{
+    dep_poptions = $cxx.lib_poptions(libus{imgui-render-metal-meta}, objs)
+    depdb hash $dep_poptions
+    depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
+                 --what=header --default-type=h \
+                 --update-exclude libus{imgui-render-metal-meta} \
+                 -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
+                    $cc.coptions $cxx.coptions $cxx.mode -M -MG $path($<[0])
+    diag obj-c++ ($<[0])
+    $cxx.path $cc.poptions $cxx.poptions $dep_poptions    \
+              $cc.coptions $cxx.coptions $cxx.mode        \
+              -o $path($>) -c -x objective-c++ $path($<[0])
+}}
+
+# Build options.
+out_pfx_inc = [dir_path] $out_root/imgui/
+src_pfx_inc = [dir_path] $src_root/imgui/
+
+cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
+
+{hbmia obja}{*}: cxx.poptions += -DIMGUI_RENDER_METAL_STATIC_BUILD
+{hbmis objs}{*}: cxx.poptions += -DIMGUI_RENDER_METAL_SHARED_BUILD
+
+# Export options.
+lib{imgui-render-metal}:
+{
+    cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+    cxx.export.libs = $intf_libs
+}
+
+liba{imgui-render-metal}: cxx.export.poptions += -DIMGUI_RENDER_METAL_STATIC
+libs{imgui-render-metal}: cxx.export.poptions += -DIMGUI_RENDER_METAL_SHARED
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+    lib{imgui-render-metal}: bin.lib.version = "-$version.project_id"
+else
+    lib{imgui-render-metal}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+    install = include/imgui/
+    install.subdirs = true
+}

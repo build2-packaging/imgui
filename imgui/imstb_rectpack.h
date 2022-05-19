@@ -1,1 +1,0 @@
-../upstream/imstb_rectpack.h
