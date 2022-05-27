@@ -12,7 +12,7 @@ switch $cxx.target.class
     }
     case 'macos'
     {
-        import pkgs += {imgui-platform-osx/ imgui-platform-metal/}
+        #import pkgs += {imgui-platform-osx/ imgui-platform-metal/}
     }
 }
 
