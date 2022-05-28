@@ -5,6 +5,16 @@ location: imgui-platform-glfw/
 :
 location: imgui-platform-osx/
 :
+location: imgui-platform-win32/
+:
+location: imgui-render-dx9/
+:
+location: imgui-render-dx10/
+:
+location: imgui-render-dx11/
+:
+location: imgui-render-dx12/
+:
 location: imgui-render-metal/
 :
 location: imgui-render-opengl2/

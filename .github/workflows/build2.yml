@@ -80,6 +80,6 @@ jobs:
         build2-version: staged
         build2-windows-compiler: ${{matrix.config.compiler_cc}}
     - name: Configure
-      run: bdep init -C ../sfml-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}}
+      run: bdep init -C ../imgui-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}}
     - name: Build
       run: b -V

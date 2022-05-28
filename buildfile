@@ -4,7 +4,7 @@ switch $cxx.target.class
 {
     case 'windows'
     {
-
+        import pkgs += {imgui-platform-win32/ imgui-platform-dx9/ imgui-platform-dx10/ imgui-platform-dx11/ imgui-platform-dx12/}
     }
     case 'linux'
     {
