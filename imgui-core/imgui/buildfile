@@ -4,8 +4,8 @@ impl_libs = # Implementation dependencies.
 lib{imgui-core}: {cxx hxx}{*}
 
 # Build options.
-out_pfx_inc = [dir_path] $out_root/imgui-core/
-src_pfx_inc = [dir_path] $src_root/imgui-core/
+out_pfx_inc = [dir_path] $out_root/imgui/
+src_pfx_inc = [dir_path] $src_root/imgui/
 
 cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
 
