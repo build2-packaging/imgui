@@ -1,4 +1,4 @@
-import pkgs = {imgui/ imgui-platform-glfw/ imgui-render-opengl2/ imgui-render-opengl3/}
+import pkgs = {imgui-core/ imgui-platform-glfw/ imgui-render-opengl2/ imgui-render-opengl3/}
 
 switch $cxx.target.class
 {
@@ -8,11 +8,10 @@ switch $cxx.target.class
     }
     case 'linux'
     {
-
     }
     case 'macos'
     {
-        #import pkgs += {imgui-platform-osx/ imgui-platform-metal/}
+        import pkgs += {imgui-platform-osx/ imgui-platform-metal/}
     }
 }
 

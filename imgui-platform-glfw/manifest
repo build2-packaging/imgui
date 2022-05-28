@@ -8,5 +8,5 @@ url: https://github.com/ocornut/imgui
 email: swat.somebug@gmail.com
 depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
-depends: imgui == $
+depends: imgui-core == $
 depends: glfw

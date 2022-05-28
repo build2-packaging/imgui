@@ -1,5 +1,5 @@
 : 1
-location: imgui/
+location: imgui-core/
 :
 location: imgui-platform-glfw/
 :
