@@ -19,9 +19,6 @@ for n: $objcxx_files
     objs{$(n).so.o}: mm{$n}
 }
 
-liba{imgui-render-metal}: obja{$regex.apply($objc_files,'(.+)','\1.a.o')}
-libs{imgui-render-metal}: objs{$regex.apply($objc_files,'(.+)','\1.so.o')}
-
 liba{imgui-render-metal}: obja{$regex.apply($objcxx_files,'(.+)','\1.a.o')}
 libs{imgui-render-metal}: objs{$regex.apply($objcxx_files,'(.+)','\1.so.o')}
 

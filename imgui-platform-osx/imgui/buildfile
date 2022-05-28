@@ -8,7 +8,7 @@ lib{imgui-platform-osx}: {hxx cxx}{**} $impl_libs $intf_libs
 define mm: file
 mm{*}: extension = mm
 
-objcxx_files = **.mm
+objcxx_files = {**.mm}
 objcxx_files = $regex.apply($objcxx_files,'(.+)\.mm','\1')
 
 [rule_hint=cxx] libul{imgui-platform-osx-meta}: $impl_libs $intf_libs
@@ -18,9 +18,6 @@ for n: $objcxx_files
     obja{$(n).a.o}: mm{$n}
     objs{$(n).so.o}: mm{$n}
 }
-
-liba{imgui-platform-osx}: obja{$regex.apply($objc_files,'(.+)','\1.a.o')}
-libs{imgui-platform-osx}: objs{$regex.apply($objc_files,'(.+)','\1.so.o')}
 
 liba{imgui-platform-osx}: obja{$regex.apply($objcxx_files,'(.+)','\1.a.o')}
 libs{imgui-platform-osx}: objs{$regex.apply($objcxx_files,'(.+)','\1.so.o')}
