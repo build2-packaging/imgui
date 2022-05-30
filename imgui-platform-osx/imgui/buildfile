@@ -1,7 +1,8 @@
 intf_libs = # Interface dependencies.
 import intf_libs += imgui-core%lib{imgui-core}
-intf_libs += -framework AppKit -framework ModelIO
 impl_libs = # Implementation dependencies.
+
+platform_libs = -framework AppKit -framework ModelIO
 
 lib{imgui-platform-osx}: {hxx cxx}{**} $impl_libs $intf_libs
 
@@ -55,6 +56,7 @@ objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-platform-osx-meta}
 out_pfx_inc = [dir_path] $out_root/imgui/
 src_pfx_inc = [dir_path] $src_root/imgui/
 
+cxx.libs =+ $platform_libs
 cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
 
 {hbmia obja}{*}: cxx.poptions += -DIMGUI_PLATFORM_OSX_STATIC_BUILD
@@ -64,7 +66,7 @@ cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
 lib{imgui-platform-osx}:
 {
     cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
-    cxx.export.libs = $intf_libs
+    cxx.export.libs = $intf_libs $platform_libs
 }
 
 liba{imgui-platform-osx}: cxx.export.poptions += -DIMGUI_PLATFORM_OSX_STATIC
