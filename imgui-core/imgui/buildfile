@@ -32,6 +32,6 @@ else
 
 hxx{*}:
 {
-    install = include/imgui-core/
+    install = include/imgui/
     install.subdirs = true
 }

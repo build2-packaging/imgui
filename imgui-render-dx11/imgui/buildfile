@@ -2,7 +2,7 @@ intf_libs = # Interface dependencies.
 import intf_libs += imgui-core%lib{imgui-core}
 impl_libs = # Implementation dependencies.
 
-intf_libs += d3d11.lib d3dcompiler.lib
+dx_libs = d3d11.lib d3dcompiler.lib
 
 lib{imgui-platform-dx11}: {hxx cxx}{**} $impl_libs $intf_libs
 
@@ -10,6 +10,7 @@ lib{imgui-platform-dx11}: {hxx cxx}{**} $impl_libs $intf_libs
 out_pfx_inc = [dir_path] $out_root/imgui/
 src_pfx_inc = [dir_path] $src_root/imgui/
 
+cxx.libs =+ $dx_libs
 cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
 
 {hbmia obja}{*}: cxx.poptions += -DIMGUI_PLATFORM_DX11_STATIC_BUILD
@@ -19,7 +20,7 @@ cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
 lib{imgui-platform-dx11}:
 {
     cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
-    cxx.export.libs = $intf_libs
+    cxx.export.libs = $intf_libs $dx_libs
 }
 
 liba{imgui-platform-dx11}: cxx.export.poptions += -DIMGUI_PLATFORM_DX11_STATIC

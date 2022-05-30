@@ -1,17 +1,19 @@
 import pkgs = {imgui-core/ imgui-platform-glfw/ imgui-render-opengl2/ imgui-render-opengl3/}
 
+using cxx
+
 switch $cxx.target.class
 {
     case 'windows'
     {
-        import pkgs += {imgui-platform-win32/ imgui-platform-dx9/ imgui-platform-dx10/ imgui-platform-dx11/ imgui-platform-dx12/}
+        import pkgs += {imgui-platform-win32/ imgui-render-dx9/ imgui-render-dx10/ imgui-render-dx11/ imgui-render-dx12/}
     }
     case 'linux'
     {
     }
     case 'macos'
     {
-        import pkgs += {imgui-platform-osx/ imgui-platform-metal/}
+        import pkgs += {imgui-platform-osx/ imgui-render-metal/}
     }
 }
 
