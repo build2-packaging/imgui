@@ -6,9 +6,9 @@ This package repository supports various `imgui` [backends](https://github.com/o
 
 ## Usage
 
-Simply add the backend package that you want to use to your manifest.
+Simply add the backend package which you want to use in your `manifest`.
 
-The following the platform backend packages are available
+The following platform backend packages are available
 
 ```
 depends: imgui-platform-glfw
@@ -16,7 +16,7 @@ depends: imgui-platform-osx
 depends: imgui-platform-win32
 ```
 
-The following the render backend packages are available
+The following render backend packages are available
 
 ```
 depends: imgui-render-dx9
