@@ -20,3 +20,5 @@ location: imgui-render-metal/
 location: imgui-render-opengl2/
 :
 location: imgui-render-opengl3/
+:
+location: imgui-examples/

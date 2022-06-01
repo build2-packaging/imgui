@@ -1,0 +1,20 @@
+: 1
+name: imgui-examples
+version: 1.86.0-a.0.z
+summary: imgui C++ library
+license: MIT
+description-file: ../README.md
+url: https://github.com/ocornut/imgui
+email: swat.somebug@gmail.com
+depends: * build2 >= 0.14.0
+depends: * bpkg >= 0.14.0
+depends: imgui-platform-glfw == $
+depends: imgui-platform-osx == $ ? ($cxx.target.class == 'macos')
+depends: imgui-platform-win32 == $ ? ($cxx.target.class == 'windows')
+depends: imgui-render-dx9 == $ ? ($cxx.target.class == 'windows')
+depends: imgui-render-dx10 == $ ? ($cxx.target.class == 'windows')
+depends: imgui-render-dx11 == $ ? ($cxx.target.class == 'windows')
+depends: imgui-render-dx12 == $ ? ($cxx.target.class == 'windows')
+depends: imgui-render-metal == $ ? ($cxx.target.class == 'macos')
+depends: imgui-render-opengl2 == $
+depends: imgui-render-opengl3 == $

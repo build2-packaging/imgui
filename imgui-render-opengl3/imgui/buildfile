@@ -17,7 +17,7 @@ cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
 # Export options.
 lib{imgui-render-opengl3}:
 {
-    cxx.export.poptions = "-I$out_pfx_inc"
+    cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
     cxx.export.libs = $intf_libs
 }
 

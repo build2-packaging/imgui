@@ -1,0 +1,5 @@
+impl_libs = # Implementation libs.
+import impl_libs += imgui-platform-osx%lib{imgui-platform-osx}
+import impl_libs += imgui-render-metal%lib{imgui-render-metal}
+
+exe{example_glfw_opengl2} : cxx{*} $impl_libs
