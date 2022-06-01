@@ -1,19 +1,29 @@
 # imgui
 
-`build2` package for [`imgui`](https://github.com/ocornut/imgui) C++ GUI library.
+`build2` packages for the [`imgui`](https://github.com/ocornut/imgui) C++ GUI library.
 
-This package supports various `imgui` [backends](https://github.com/ocornut/imgui/blob/master/docs/BACKENDS.md) using build configuration variables `config.imgui.platformbackend`(default = `glfw`) and `config.imgui.renderbackend`(default = `opengl3`).
+This package repository supports various `imgui` [backends](https://github.com/ocornut/imgui/blob/master/docs/BACKENDS.md) for platforms and rendering.
 
-The following the values are supported
+## Usage
+
+Simply add the backend package that you want to use to your manifest.
+
+The following the platform backend packages are available
+
 ```
-config.imgui.platformbackend = [android, glfw, osx, sdl, win32, glut]
-config.imgui.renderbackend = [dx9, dx10, dx11, dx12, metal, opengl2, opengl3 sdlrenderer, vulkan, wgpu]
+depends: imgui-platform-glfw
+depends: imgui-platform-osx
+depends: imgui-platform-win32
 ```
 
-Additionally, high-level framework backends (which overwrite `platformbackend` and `renderbackend`) are supported using the configuration variable
-```
-config.imgui.hlframeworkbackend = [allegro, marmalade]
-```
-By default however, `hlframworkbackend` is set to `none`.
+The following the render backend packages are available
 
-The easiest way to use `imgui` with custom backends is to set `platformbackend`, `renderbackend` and `hlframworkbackend` to empty strings and link the custom backend along with `imgui` into an executable/library.
+```
+depends: imgui-render-dx9
+depends: imgui-render-dx10
+depends: imgui-render-dx11
+depends: imgui-render-dx12
+depends: imgui-render-metal
+depends: imgui-render-opengl2
+depends: imgui-render-opengl3
+```
