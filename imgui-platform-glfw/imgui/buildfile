@@ -9,7 +9,7 @@ lib{imgui-platform-glfw}: {hxx cxx}{**} $impl_libs $intf_libs
 out_pfx_inc = [dir_path] $out_root/imgui/
 src_pfx_inc = [dir_path] $src_root/imgui/
 
-cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
+cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
 
 {hbmia obja}{*}: cxx.poptions += -DIMGUI_PLATFORM_GLFW_STATIC_BUILD
 {hbmis objs}{*}: cxx.poptions += -DIMGUI_PLATFORM_GLFW_SHARED_BUILD

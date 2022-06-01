@@ -9,7 +9,7 @@ lib{imgui-render-opengl3}: {hxx cxx}{**} $impl_libs $intf_libs
 out_pfx_inc = [dir_path] $out_root/imgui/
 src_pfx_inc = [dir_path] $src_root/imgui/
 
-cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc"
+cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
 
 {hbmia obja}{*}: cxx.poptions += -DIMGUI_RENDER_OPENGL3_STATIC_BUILD
 {hbmis objs}{*}: cxx.poptions += -DIMGUI_RENDER_OPENGL3_SHARED_BUILD
