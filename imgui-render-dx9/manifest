@@ -1,11 +1,16 @@
 : 1
 name: imgui-render-dx9
 version: 1.86.0-a.0.z
-summary: imgui C++ library
+summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui
-email: swat.somebug@gmail.com
+email: contact@dearimgui.com
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url : https://github.com/ocornut/imgui
+package-url: https://github.com/build2-packaging/imgui
+package-email: swat.somebug@gmail.com
+
 depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
 depends: imgui == $
