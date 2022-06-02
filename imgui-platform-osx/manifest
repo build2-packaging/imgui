@@ -1,7 +1,7 @@
 : 1
 name: imgui-platform-osx
 version: 1.86.0-a.0.z
-summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies
+summary: Dear ImGui platform backend for OSX
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui
