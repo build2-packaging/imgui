@@ -8,6 +8,7 @@ This package repository supports various `imgui` [backends](https://github.com/o
 
 Simply add the backend package which you want to use in your `manifest`.
 Note that you need to use at least one render and one platform backend, but projects can also depend on more than a single backend.
+If you want to link statically or dynamically against imgui make sure the core library and all backends you depend on us the same "mode". It is either all static or all dynamic.
 
 The following platform backend packages are available
 
