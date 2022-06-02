@@ -1,0 +1,5 @@
+impl_libs = # Implementation libs.
+import impl_libs += imgui-platform-glfw%lib{imgui-platform-glfw}
+import impl_libs += imgui-render-vulkan%lib{imgui-render-vulkan}
+
+exe{example_glfw_vulkan} : cxx{*} $impl_libs

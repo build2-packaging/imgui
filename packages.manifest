@@ -21,4 +21,6 @@ location: imgui-render-opengl2/
 :
 location: imgui-render-opengl3/
 :
+location: imgui-render-vulkan/
+:
 location: imgui-examples/

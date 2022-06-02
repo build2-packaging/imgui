@@ -1,4 +1,4 @@
-targets = example_glfw_opengl2/ example_glfw_opengl3/ legal{LICENSE.txt} doc{README.md} manifest
+targets = example_glfw_opengl2/ example_glfw_opengl3/ example_glfw_vulkan/ legal{LICENSE.txt} doc{README.md} manifest
 
 switch $cxx.target.class
 {
