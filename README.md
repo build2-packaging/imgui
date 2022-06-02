@@ -7,6 +7,7 @@ This package repository supports various `imgui` [backends](https://github.com/o
 ## Usage
 
 Simply add the backend package which you want to use in your `manifest`.
+Note that you need to use at least one render and one platform backend, but projects can also depend on more than a single backend.
 
 The following platform backend packages are available
 
@@ -27,3 +28,11 @@ depends: imgui-render-metal
 depends: imgui-render-opengl2
 depends: imgui-render-opengl3
 ```
+
+Headers are included without any prefix, for example:
+
+```c++
+#include <imgui_impl_opengl2.h>
+```
+
+See also the `imgui-examples` package for examples on how to build executables with the package.
