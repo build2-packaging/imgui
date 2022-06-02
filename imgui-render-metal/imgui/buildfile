@@ -83,6 +83,6 @@ else
 
 hxx{*}:
 {
-    install = include/imgui/
+    install = include/
     install.subdirs = true
 }
