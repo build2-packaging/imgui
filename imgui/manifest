@@ -1,5 +1,5 @@
 : 1
-name: imgui-core
+name: imgui
 version: 1.86.0-a.0.z
 summary: imgui C++ library
 license: MIT

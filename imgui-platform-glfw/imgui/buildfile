@@ -1,6 +1,6 @@
 intf_libs = # Interface dependencies.
 import intf_libs += glfw%lib{glfw}
-import intf_libs += imgui-core%lib{imgui-core}
+import intf_libs += imgui%lib{imgui}
 impl_libs = # Implementation dependencies.
 
 lib{imgui-platform-glfw}: {hxx cxx}{**} $impl_libs $intf_libs

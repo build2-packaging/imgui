@@ -1,5 +1,5 @@
 intf_libs = # Interface dependencies.
-import intf_libs += imgui-core%lib{imgui-core}
+import intf_libs += imgui%lib{imgui}
 impl_libs = # Implementation dependencies.
 
 platform_libs = -framework AppKit -framework ModelIO
