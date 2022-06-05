@@ -1,31 +1,7 @@
 intf_libs = # Interface dependencies.
 import intf_libs += imgui%lib{imgui}
+import intf_libs += vulkan-meta%lib{vulkan}
 impl_libs = # Implementation dependencies.
-
-platform_libs =
-
-switch $cxx.target.class
-{
-    case 'windows'
-    {
-        if ($cxx.target.system == 'mingw32')
-        {
-            platform_libs += -lvulkan-1
-        }
-        else
-        {
-            platform_libs += vulkan-1.lib
-        }
-    }
-    case 'macos'
-    {
-
-    }
-    default
-    {
-        platform_libs += -lvulkan
-    }
-}
 
 lib{imgui-render-vulkan}: {hxx cxx}{**} $impl_libs $intf_libs
 
@@ -33,7 +9,6 @@ lib{imgui-render-vulkan}: {hxx cxx}{**} $impl_libs $intf_libs
 out_pfx_inc = [dir_path] $out_root/imgui/
 src_pfx_inc = [dir_path] $src_root/imgui/
 
-cxx.libs =+ $platform_libs
 cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
 
 {hbmia obja}{*}: cxx.poptions += -DIMGUI_RENDER_VULKAN_STATIC_BUILD
@@ -43,7 +18,7 @@ cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
 lib{imgui-render-vulkan}:
 {
     cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
-    cxx.export.libs = $intf_libs $platform_libs
+    cxx.export.libs = $intf_libs
 }
 
 liba{imgui-render-vulkan}: cxx.export.poptions += -DIMGUI_RENDER_VULKAN_STATIC
