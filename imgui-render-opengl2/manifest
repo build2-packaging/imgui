@@ -11,7 +11,7 @@ src-url : https://github.com/ocornut/imgui
 package-url: https://github.com/build2-packaging/imgui
 package-email: swat.somebug@gmail.com
 
-depends: * build2 >= 0.14.0
-depends: * bpkg >= 0.14.0
+depends: * build2 >= 0.15.0-
+depends: * bpkg >= 0.15.0-
 depends: imgui == $
 depends: opengl-meta
