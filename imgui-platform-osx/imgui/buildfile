@@ -82,6 +82,5 @@ else
 
 hxx{*}:
 {
-    install = include/
-    install.subdirs = true
+    install = include/imgui/backends/
 }
