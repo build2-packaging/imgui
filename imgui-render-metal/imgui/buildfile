@@ -1,31 +1,20 @@
 intf_libs = # Interface dependencies.
 import intf_libs += imgui%lib{imgui}
-impl_libs = # Implementation dependencies.
 
 platform_libs = -framework AppKit -framework ModelIO -framework Metal -framework MetalKit
-platform_poptions = -fobjc-weak
+platform_coptions = -fobjc-weak
 
-lib{imgui-render-metal}: {hxx cxx}{**} $impl_libs $intf_libs
+lib{imgui-render-metal}: {hxx cxx}{**} $intf_libs
 
-# Build options.
-out_pfx_inc = [dir_path] $out_root/imgui/
-src_pfx_inc = [dir_path] $src_root/imgui/
-
-cxx.libs =+ $platform_libs
-cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
-
-{hbmia obja}{*}: cxx.poptions += -DIMGUI_RENDER_METAL_STATIC_BUILD
-{hbmis objs}{*}: cxx.poptions += -DIMGUI_RENDER_METAL_SHARED_BUILD
+cxx.libs += $platform_libs
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
 
 # Export options.
 lib{imgui-render-metal}:
 {
-    cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+    cxx.export.poptions = "-I$out_base" "-I$src_base"
     cxx.export.libs = $intf_libs $platform_libs
 }
-
-liba{imgui-render-metal}: cxx.export.poptions += -DIMGUI_RENDER_METAL_STATIC
-libs{imgui-render-metal}: cxx.export.poptions += -DIMGUI_RENDER_METAL_SHARED
 
 define mm: file
 mm{*}: extension = mm
@@ -33,7 +22,7 @@ mm{*}: extension = mm
 objcxx_files = **.mm
 objcxx_files = $regex.apply($objcxx_files,'(.+)\.mm','\1')
 
-[rule_hint=cxx] libul{imgui-render-metal-meta}: $impl_libs $intf_libs
+[rule_hint=cxx] libul{imgui-render-metal-meta}: $intf_libs
 
 for n: $objcxx_files
 {
@@ -51,10 +40,10 @@ obja{~'/(.*).a/'}: mm{~'/\1/'} libua{imgui-render-metal-meta}
     depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
                  --what=header --default-type=h \
                  --update-exclude libua{imgui-render-metal-meta} \
-                 -- $cxx.path $cc.poptions $cxx.poptions $platform_poptions $dep_poptions \
+                 -- $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions \
                     $cc.coptions $cxx.coptions $cxx.mode -M -MG $path($<[0])
     diag obj-c++ ($<[0])
-    $cxx.path $cc.poptions $cxx.poptions $platform_poptions $dep_poptions    \
+    $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions    \
               $cc.coptions $cxx.coptions $cxx.mode        \
               -o $path($>) -c -x objective-c++ $path($<[0])
 }}
@@ -65,10 +54,10 @@ objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-render-metal-meta}
     depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
                  --what=header --default-type=h \
                  --update-exclude libus{imgui-render-metal-meta} \
-                 -- $cxx.path $cc.poptions $cxx.poptions $platform_poptions $dep_poptions \
+                 -- $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions \
                     $cc.coptions $cxx.coptions $cxx.mode -M -MG $path($<[0])
     diag obj-c++ ($<[0])
-    $cxx.path $cc.poptions $cxx.poptions $platform_poptions $dep_poptions    \
+    $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions    \
               $cc.coptions $cxx.coptions $cxx.mode        \
               -o $path($>) -c -x objective-c++ $path($<[0])
 }}

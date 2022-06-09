@@ -1,28 +1,17 @@
 intf_libs = # Interface dependencies.
 import intf_libs += opengl-meta%lib{opengl-gl}
 import intf_libs += imgui%lib{imgui}
-impl_libs = # Implementation dependencies.
 
-lib{imgui-render-opengl3}: {hxx cxx}{**} $impl_libs $intf_libs
+lib{imgui-render-opengl3}: {hxx cxx}{**} $intf_libs
 
-# Build options.
-out_pfx_inc = [dir_path] $out_root/imgui/
-src_pfx_inc = [dir_path] $src_root/imgui/
-
-cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
-
-{hbmia obja}{*}: cxx.poptions += -DIMGUI_RENDER_OPENGL3_STATIC_BUILD
-{hbmis objs}{*}: cxx.poptions += -DIMGUI_RENDER_OPENGL3_SHARED_BUILD
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
 
 # Export options.
 lib{imgui-render-opengl3}:
 {
-    cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+    cxx.export.poptions = "-I$out_base" "-I$src_base"
     cxx.export.libs = $intf_libs
 }
-
-liba{imgui-render-opengl3}: cxx.export.poptions += -DIMGUI_RENDER_OPENGL3_STATIC
-libs{imgui-render-opengl3}: cxx.export.poptions += -DIMGUI_RENDER_OPENGL3_SHARED
 
 # For pre-releases use the complete version to make sure they cannot be used
 # in place of another pre-release or the final version. See the version module

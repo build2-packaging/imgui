@@ -1,38 +1,26 @@
 intf_libs = # Interface dependencies.
 import intf_libs += imgui%lib{imgui}
-impl_libs = # Implementation dependencies.
 
 platform_libs = -framework AppKit -framework ModelIO
 
-lib{imgui-platform-osx}: {hxx cxx}{**} $impl_libs $intf_libs
+lib{imgui-platform-osx}: {hxx cxx}{**} $intf_libs
 
-# Build options.
-out_pfx_inc = [dir_path] $out_root/imgui/
-src_pfx_inc = [dir_path] $src_root/imgui/
-
-cxx.libs =+ $platform_libs
-cxx.poptions =+ "-I$out_pfx_inc" "-I$src_pfx_inc" -DIMGUI_EXPORT
-
-{hbmia obja}{*}: cxx.poptions += -DIMGUI_PLATFORM_OSX_STATIC_BUILD
-{hbmis objs}{*}: cxx.poptions += -DIMGUI_PLATFORM_OSX_SHARED_BUILD
+cxx.libs += $platform_libs
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
 
 # Export options.
 lib{imgui-platform-osx}:
 {
-    cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+    cxx.export.poptions = "-I$out_base" "-I$src_base"
     cxx.export.libs = $intf_libs $platform_libs
 }
-
-liba{imgui-platform-osx}: cxx.export.poptions += -DIMGUI_PLATFORM_OSX_STATIC
-libs{imgui-platform-osx}: cxx.export.poptions += -DIMGUI_PLATFORM_OSX_SHARED
 
 define mm: file
 mm{*}: extension = mm
 
-objcxx_files = {**.mm}
-objcxx_files = $regex.apply($objcxx_files,'(.+)\.mm','\1')
+objcxx_files = $name(mm{*})
 
-[rule_hint=cxx] libul{imgui-platform-osx-meta}: $impl_libs $intf_libs
+[rule_hint=cxx] libul{imgui-platform-osx-meta}: $intf_libs
 
 for n: $objcxx_files
 {
