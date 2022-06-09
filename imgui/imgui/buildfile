@@ -10,6 +10,8 @@ lib{imgui}:
     cxx.export.poptions = "-I$out_base" "-I$src_base"
 }
 
+lib{imgui}: cxx.pkgconfig.include = include/imgui/ include/imgui/backends/
+
 liba{imgui}: cxx.export.poptions += -DIMGUI_STATIC
 
 # For pre-releases use the complete version to make sure they cannot be used
