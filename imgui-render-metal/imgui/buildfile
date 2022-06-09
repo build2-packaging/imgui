@@ -19,8 +19,7 @@ lib{imgui-render-metal}:
 define mm: file
 mm{*}: extension = mm
 
-objcxx_files = **.mm
-objcxx_files = $regex.apply($objcxx_files,'(.+)\.mm','\1')
+objcxx_files = $name(mm{*})
 
 [rule_hint=cxx] libul{imgui-render-metal-meta}: $intf_libs
 
