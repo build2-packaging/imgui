@@ -40,11 +40,11 @@ obja{~'/(.*).a/'}: mm{~'/\1/'} libua{imgui-render-metal-meta}
     depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
                  --what=header --default-type=h \
                  --update-exclude libua{imgui-render-metal-meta} \
-                 -- $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions \
-                    $cc.coptions $cxx.coptions $cxx.mode -M -MG $path($<[0])
+                 -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
+                    $cc.coptions $cxx.coptions $platform_coptions $cxx.mode -M -MG $path($<[0])
     diag obj-c++ ($<[0])
-    $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions    \
-              $cc.coptions $cxx.coptions $cxx.mode        \
+    $cxx.path $cc.poptions $cxx.poptions $dep_poptions    \
+              $cc.coptions $cxx.coptions $platform_coptions $cxx.mode        \
               -o $path($>) -c -x objective-c++ $path($<[0])
 }}
 objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-render-metal-meta}
@@ -54,11 +54,11 @@ objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-render-metal-meta}
     depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
                  --what=header --default-type=h \
                  --update-exclude libus{imgui-render-metal-meta} \
-                 -- $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions \
-                    $cc.coptions $cxx.coptions $cxx.mode -M -MG $path($<[0])
+                 -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
+                    $cc.coptions $cxx.coptions $platform_coptions $cxx.mode -M -MG $path($<[0])
     diag obj-c++ ($<[0])
-    $cxx.path $cc.poptions $cxx.poptions $platform_coptions $dep_poptions    \
-              $cc.coptions $cxx.coptions $cxx.mode        \
+    $cxx.path $cc.poptions $cxx.poptions $dep_poptions    \
+              $cc.coptions $cxx.coptions $platform_coptions $cxx.mode        \
               -o $path($>) -c -x objective-c++ $path($<[0])
 }}
 
