@@ -2,7 +2,7 @@ intf_libs = # Interface dependencies.
 import intf_libs += imgui%lib{imgui}
 
 platform_libs = # Platform specific libraries.
-if $cxx.target.system == 'mingw32'
+if ($cxx.target.system == 'mingw32')
 	platform_libs += -ld3d10 -ld3dcompiler
 else
 	platform_libs += d3d10.lib d3dcompiler.lib
@@ -10,7 +10,7 @@ else
 lib{imgui-render-dx10}: {hxx cxx}{**} $intf_libs
 
 cxx.libs += $platform_libs
-cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_IMPL_EXPORT
 
 # Export options.
 lib{imgui-render-dx10}:

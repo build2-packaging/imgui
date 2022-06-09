@@ -4,7 +4,7 @@ import intf_libs += imgui%lib{imgui}
 
 lib{imgui-platform-glfw}: {hxx cxx}{**} $intf_libs
 
-cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_IMPL_EXPORT
 
 # Export options.
 lib{imgui-platform-glfw}:

@@ -7,7 +7,7 @@ platform_coptions = -fobjc-weak
 lib{imgui-render-metal}: {hxx cxx}{**} $intf_libs
 
 cxx.libs += $platform_libs
-cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_IMPL_EXPORT
 
 # Export options.
 lib{imgui-render-metal}:
