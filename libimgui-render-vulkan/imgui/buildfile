@@ -1,6 +1,6 @@
 intf_libs = # Interface dependencies.
 import intf_libs += libimgui%lib{imgui}
-import intf_libs += vulkan-meta%lib{vulkan}
+import intf_libs += libvulkan-meta%lib{vulkan}
 
 lib{imgui-render-vulkan}: {hxx cxx}{**} $intf_libs
 
