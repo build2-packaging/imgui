@@ -1,0 +1,27 @@
+intf_libs = # Interface dependencies.
+import intf_libs += opengl-meta%lib{opengl-gl}
+import intf_libs += libimgui%lib{imgui}
+
+lib{imgui-render-opengl2}: {hxx cxx}{**} $intf_libs
+
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_IMPL_EXPORT
+
+# Export options.
+lib{imgui-render-opengl2}:
+{
+    cxx.export.poptions = "-I$out_base" "-I$src_base"
+    cxx.export.libs = $intf_libs
+}
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+    lib{imgui-render-opengl2}: bin.lib.version = "-$version.project_id"
+else
+    lib{imgui-render-opengl2}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+    install = include/imgui/backends/
+}

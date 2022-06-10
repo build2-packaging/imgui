@@ -13,21 +13,21 @@ If you want to link statically or dynamically against imgui make sure the core l
 The following platform backend packages are available
 
 ```
-depends: imgui-platform-glfw
-depends: imgui-platform-osx
-depends: imgui-platform-win32
+depends: libimgui-platform-glfw
+depends: libimgui-platform-osx
+depends: libimgui-platform-win32
 ```
 
 The following render backend packages are available
 
 ```
-depends: imgui-render-dx9
-depends: imgui-render-dx10
-depends: imgui-render-dx11
-depends: imgui-render-dx12
-depends: imgui-render-metal
-depends: imgui-render-opengl2
-depends: imgui-render-opengl3
+depends: libimgui-render-dx9
+depends: libimgui-render-dx10
+depends: libimgui-render-dx11
+depends: libimgui-render-dx12
+depends: libimgui-render-metal
+depends: libimgui-render-opengl2
+depends: libimgui-render-opengl3
 ```
 
 Headers are included without any prefix, for example:

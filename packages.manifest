@@ -1,26 +1,26 @@
 : 1
-location: imgui/
+location: libimgui/
 :
-location: imgui-platform-glfw/
+location: libimgui-platform-glfw/
 :
-location: imgui-platform-osx/
+location: libimgui-platform-osx/
 :
-location: imgui-platform-win32/
+location: libimgui-platform-win32/
 :
-location: imgui-render-dx9/
+location: libimgui-render-dx9/
 :
-location: imgui-render-dx10/
+location: libimgui-render-dx10/
 :
-location: imgui-render-dx11/
+location: libimgui-render-dx11/
 :
-location: imgui-render-dx12/
+location: libimgui-render-dx12/
 :
-location: imgui-render-metal/
+location: libimgui-render-metal/
 :
-location: imgui-render-opengl2/
+location: libimgui-render-opengl2/
 :
-location: imgui-render-opengl3/
+location: libimgui-render-opengl3/
 :
-location: imgui-render-vulkan/
+location: libimgui-render-vulkan/
 :
-location: imgui-examples/
+location: libimgui-examples/

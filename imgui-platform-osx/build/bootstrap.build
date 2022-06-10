@@ -1,7 +1,0 @@
-project = imgui-platform-osx
-
-using version
-using config
-using test
-using install
-using dist

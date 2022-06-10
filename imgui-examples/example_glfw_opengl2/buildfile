@@ -1,5 +1,0 @@
-impl_libs = # Implementation libs.
-import impl_libs += imgui-platform-glfw%lib{imgui-platform-glfw}
-import impl_libs += imgui-render-opengl2%lib{imgui-render-opengl2}
-
-exe{example_glfw_opengl2} : cxx{*} $impl_libs

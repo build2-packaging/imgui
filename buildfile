@@ -1,4 +1,4 @@
-import pkgs = {imgui/ imgui-platform-glfw/ imgui-render-opengl2/ imgui-render-opengl3/ imgui-render-vulkan/ imgui-examples/}
+import pkgs = {libimgui/ libimgui-platform-glfw/ libimgui-render-opengl2/ libimgui-render-opengl3/ libimgui-render-vulkan/ libimgui-examples/}
 
 using cxx
 
@@ -6,11 +6,11 @@ switch $cxx.target.class
 {
     case 'windows'
     {
-        import pkgs += {imgui-platform-win32/ imgui-render-dx9/ imgui-render-dx10/ imgui-render-dx11/ imgui-render-dx12/}
+        import pkgs += {libimgui-platform-win32/ libimgui-render-dx9/ libimgui-render-dx10/ libimgui-render-dx11/ libimgui-render-dx12/}
     }
     case 'macos'
     {
-        import pkgs += {imgui-platform-osx/ imgui-render-metal/}
+        import pkgs += {libimgui-platform-osx/ libimgui-render-metal/}
     }
 }
 

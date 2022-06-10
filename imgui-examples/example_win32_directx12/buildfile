@@ -1,5 +1,0 @@
-impl_libs = # Implementation libs.
-import impl_libs += imgui-platform-win32%lib{imgui-platform-win32}
-import impl_libs += imgui-render-dx12%lib{imgui-render-dx12}
-
-exe{example_win32_dx12} : cxx{*} $impl_libs

@@ -1,7 +1,0 @@
-project = imgui-render-dx11
-
-using version
-using config
-using test
-using install
-using dist

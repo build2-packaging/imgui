@@ -1,0 +1,17 @@
+: 1
+name: libimgui-render-opengl2
+version: 1.86.0-a.0.z
+summary: Dear ImGui render backend for Open GL 2
+license: MIT
+description-file: README.md
+url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url : https://github.com/ocornut/imgui
+package-url: https://github.com/build2-packaging/imgui
+package-email: swat.somebug@gmail.com
+
+depends: * build2 >= 0.15.0-
+depends: * bpkg >= 0.15.0-
+depends: libimgui == $
+depends: opengl-meta

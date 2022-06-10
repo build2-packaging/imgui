@@ -1,3 +1,0 @@
-impl_libs = # Implementation libs.
-import impl_libs += imgui-platform-glfw%lib{imgui-platform-glfw}
-import impl_libs += imgui-render-metal%lib{imgui-render-metal}
