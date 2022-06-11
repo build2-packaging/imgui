@@ -101,7 +101,7 @@ jobs:
             - name: Windows clang Release
               os: windows-latest
               compiler_cc: clang
-              compiler_coptions: /O2 /DNDEBUG
+              compiler_coptions: -O3 -DNDEBUG
     steps:
     - uses: actions/checkout@v3
       with:
