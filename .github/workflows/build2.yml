@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg-dev libvulkan-dev
       - name: Configure
-        run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}} config.cxx.coptions="${{matrix.config.compiler_coptions}}"
+        run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}} config.cc.coptions="${{matrix.config.compiler_coptions}}"
       - name: Build
         run: b -V
 
@@ -75,7 +75,7 @@ jobs:
       with:
         build2-version: staged
     - name: Configure
-      run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}} config.cxx.coptions="${{matrix.config.compiler_coptions}}"
+      run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}} config.cc.coptions="${{matrix.config.compiler_coptions}}"
     - name: Build
       run: b -V
 
@@ -89,19 +89,23 @@ jobs:
             - name: Windows msvc Debug
               os: windows-latest
               compiler_cc: msvc
-              compiler_coptions:
+              compiler_coptions: /Zi
+              compiler_loptions: /DEBUG
             - name: Windows clang Debug
               os: windows-latest
               compiler_cc: clang
-              compiler_coptions:
+              compiler_coptions: -g
+              compiler_loptions:
             - name: Windows msvc Release
               os: windows-latest
               compiler_cc: msvc
               compiler_coptions: /O2 /DNDEBUG
+              compiler_loptions:
             - name: Windows clang Release
               os: windows-latest
               compiler_cc: clang
               compiler_coptions: -O3 -DNDEBUG
+              compiler_loptions:
     steps:
     - uses: actions/checkout@v3
       with:
@@ -115,6 +119,6 @@ jobs:
         build2-version: staged
         build2-windows-compiler: ${{matrix.config.compiler_cc}}
     - name: Configure
-      run: bdep init -C ../imgui-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}} cc config.cxx.coptions="${{matrix.config.compiler_coptions}}"
+      run: bdep init -C ../imgui-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}} cc config.cc.coptions="${{matrix.config.compiler_coptions}}" config.cc.loptions="${{matrix.config.compiler_loptions}}"
     - name: Build
       run: b -V
