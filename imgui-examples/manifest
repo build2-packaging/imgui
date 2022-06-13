@@ -1,5 +1,5 @@
 : 1
-name: libimgui-examples
+name: imgui-examples
 version: 1.86.0-a.0.z
 summary: Executable examples of usage of the Dear ImGui library
 license: MIT

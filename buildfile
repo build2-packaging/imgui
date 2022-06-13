@@ -1,4 +1,4 @@
-import pkgs = {libimgui/ libimgui-platform-glfw/ libimgui-render-opengl2/ libimgui-render-opengl3/ libimgui-render-vulkan/ libimgui-examples/}
+import pkgs = {libimgui/ libimgui-platform-glfw/ libimgui-render-opengl2/ libimgui-render-opengl3/ libimgui-render-vulkan/ imgui-examples/}
 
 using cxx
 
