@@ -1,6 +1,7 @@
 : 1
 name: libimgui-render-vulkan
 version: 1.86.0-a.0.z
+project: imgui
 summary: Dear ImGui render backend for Vulkan
 license: MIT
 description-file: README.md

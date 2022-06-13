@@ -1,6 +1,7 @@
 : 1
 name: libimgui-render-opengl2
 version: 1.86.0-a.0.z
+project: imgui
 summary: Dear ImGui render backend for Open GL 2
 license: MIT
 description-file: README.md
