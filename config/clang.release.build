@@ -1,0 +1,1 @@
+config.cc.coptions = -O3 -DNDEBUG

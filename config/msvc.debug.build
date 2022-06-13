@@ -1,0 +1,2 @@
+config.cc.coptions = /Zi
+config.cc.loptions = /DEBUG
