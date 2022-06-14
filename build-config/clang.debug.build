@@ -1,1 +1,2 @@
+config.cxx = clang++
 config.cc.coptions = -g

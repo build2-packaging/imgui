@@ -1,1 +1,2 @@
+config.cxx = g++
 config.cc.coptions = -O3 -DNDEBUG

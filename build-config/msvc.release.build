@@ -1,1 +1,2 @@
+config.cxx = cl /MD
 config.cc.coptions = /O2 /DNDEBUG
