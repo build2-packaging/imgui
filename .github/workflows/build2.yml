@@ -77,15 +77,19 @@ jobs:
             - name: Windows msvc Debug
               os: windows-latest
               config_file: msvc.debug.build
+              compiler_type: msvc
             - name: Windows clang Debug
               os: windows-latest
               config_file: clang.debug.build
+              compiler_type: clang
             - name: Windows msvc Release
               os: windows-latest
               config_file: msvc.release.build
+              compiler_type: msvc
             - name: Windows clang Release
               os: windows-latest
               config_file: clang.release.build
+              compiler_type: clang
     steps:
     - uses: actions/checkout@v3
       with:
@@ -97,7 +101,7 @@ jobs:
     - uses: build2/setup-build2-github-action@v2
       with:
         build2-version: staged
-        build2-windows-compiler: ${{matrix.config.compiler_cc}}
+        build2-windows-compiler: ${{matrix.config.compiler_type}}
     - name: Configure
       run: bdep init -C ../imgui-cc @cc cc --options-file build-config/${{matrix.config.config_file}}
     - name: Build
