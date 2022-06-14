@@ -13,24 +13,16 @@ jobs:
         config:
           - name: Ubuntu gcc Debug
             os: ubuntu-latest
-            compiler_cc: gcc
-            compiler_cxx: g++
-            compiler_coptions: -g
+            config_file: gcc.debug.build
           - name: Ubuntu clang Debug
             os: ubuntu-latest
-            compiler_cc: clang
-            compiler_cxx: clang++
-            compiler_coptions: -g
+            config_file: clang.debug.build
           - name: Ubuntu gcc Release
             os: ubuntu-latest
-            compiler_cc: gcc
-            compiler_cxx: g++
-            compiler_coptions: -g
+            config_file: gcc.release.build
           - name: Ubuntu clang Release
             os: ubuntu-latest
-            compiler_cc: clang
-            compiler_cxx: clang++
-            compiler_coptions: -O3 -DNDEBUG
+            config_file: clang.release.build
 
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg-dev libvulkan-dev
       - name: Configure
-        run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}} config.cc.coptions="${{matrix.config.compiler_coptions}}"
+        run: bdep init -C @cc cc --options-file build-config/${{matrix.config.config_file}}
       - name: Build
         run: b -V
 
@@ -55,14 +47,10 @@ jobs:
         config:
           - name: MacOS clang Debug
             os: macos-latest
-            compiler_cc: clang
-            compiler_cxx: clang++
-            compiler_coptions: -g
+            config_file: clang.debug.build
           - name: MacOS clang Release
             os: macos-latest
-            compiler_cc: clang
-            compiler_cxx: clang++
-            compiler_coptions: -O3 -DNDEBUG
+            config_file: clang.release.build
     steps:
     - uses: actions/checkout@v3
       with:
@@ -75,7 +63,7 @@ jobs:
       with:
         build2-version: staged
     - name: Configure
-      run: bdep init -C @${{matrix.config.compiler_cc}} cc config.cxx=${{matrix.config.compiler_cxx}} config.cc.coptions="${{matrix.config.compiler_coptions}}"
+      run: bdep init -C @cc cc --options-file build-config/${{matrix.config.config_file}}
     - name: Build
       run: b -V
 
@@ -88,24 +76,16 @@ jobs:
         config:
             - name: Windows msvc Debug
               os: windows-latest
-              compiler_cc: msvc
-              compiler_coptions: /Zi
-              compiler_loptions: /DEBUG
+              config_file: msvc.debug.build
             - name: Windows clang Debug
               os: windows-latest
-              compiler_cc: clang
-              compiler_coptions: -g
-              compiler_loptions:
+              config_file: clang.debug.build
             - name: Windows msvc Release
               os: windows-latest
-              compiler_cc: msvc
-              compiler_coptions: /O2 /DNDEBUG
-              compiler_loptions:
+              config_file: msvc.release.build
             - name: Windows clang Release
               os: windows-latest
-              compiler_cc: clang
-              compiler_coptions: -O3 -DNDEBUG
-              compiler_loptions:
+              config_file: clang.release.build
     steps:
     - uses: actions/checkout@v3
       with:
@@ -119,6 +99,6 @@ jobs:
         build2-version: staged
         build2-windows-compiler: ${{matrix.config.compiler_cc}}
     - name: Configure
-      run: bdep init -C ../imgui-${{matrix.config.compiler_cc}} @${{matrix.config.compiler_cc}} cc config.cc.coptions="${{matrix.config.compiler_coptions}}" config.cc.loptions="${{matrix.config.compiler_loptions}}"
+      run: bdep init -C ../imgui-cc @cc cc --options-file build-config/${{matrix.config.config_file}}
     - name: Build
       run: b -V
