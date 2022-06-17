@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg-dev libvulkan-dev
       - name: Configure
-        run: bdep init -C @cc cc --options-file build-config/${{matrix.config.config_file}}
+        run: bdep init -C @cc cc config.config.load=build-config/${{matrix.config.config_file}}
       - name: Build
         run: b -V
 
@@ -63,7 +63,7 @@ jobs:
       with:
         build2-version: staged
     - name: Configure
-      run: bdep init -C @cc cc --options-file build-config/${{matrix.config.config_file}}
+      run: bdep init -C @cc cc config.config.load=build-config/${{matrix.config.config_file}}
     - name: Build
       run: b -V
 
@@ -103,6 +103,6 @@ jobs:
         build2-version: staged
         build2-windows-compiler: ${{matrix.config.compiler_type}}
     - name: Configure
-      run: bdep init -C ../imgui-cc @cc cc --options-file build-config/${{matrix.config.config_file}}
+      run: bdep init -C ../imgui-cc @cc cc config.config.load=build-config/${{matrix.config.config_file}}
     - name: Build
       run: b -V
