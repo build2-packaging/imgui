@@ -1,8 +1,0 @@
-# Linked executables
-basics
-glfw-opengl?
-glfw-vulkan
-
-
-# Outputs from runs
-imgui.ini

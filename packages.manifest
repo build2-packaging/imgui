@@ -1,0 +1,26 @@
+: 1
+location: libimgui/
+:
+location: libimgui-platform-glfw/
+:
+location: libimgui-platform-osx/
+:
+location: libimgui-platform-win32/
+:
+location: libimgui-render-dx9/
+:
+location: libimgui-render-dx10/
+:
+location: libimgui-render-dx11/
+:
+location: libimgui-render-dx12/
+:
+location: libimgui-render-metal/
+:
+location: libimgui-render-opengl2/
+:
+location: libimgui-render-opengl3/
+:
+location: libimgui-render-vulkan/
+:
+location: imgui-examples/

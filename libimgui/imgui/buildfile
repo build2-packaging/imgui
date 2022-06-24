@@ -1,0 +1,28 @@
+lib{imgui}: {cxx hxx}{*}
+
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
+
+{hbmia obja}{*}: cxx.poptions += -DIMGUI_STATIC
+
+# Export options.
+lib{imgui}:
+{
+    cxx.export.poptions = "-I$out_base" "-I$src_base"
+}
+
+lib{imgui}: cxx.pkgconfig.include = include/imgui/ include/imgui/backends/
+
+liba{imgui}: cxx.export.poptions += -DIMGUI_STATIC
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+    lib{imgui}: bin.lib.version = "-$version.project_id"
+else
+    lib{imgui}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+    install = include/imgui/
+}

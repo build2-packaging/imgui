@@ -1,0 +1,27 @@
+: 1
+name: imgui-examples
+version: 1.86.0-a.0.z
+project: imgui
+summary: Executable examples of usage of the Dear ImGui library
+license: MIT
+description-file: README.md
+url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url : https://github.com/ocornut/imgui
+package-url: https://github.com/build2-packaging/imgui
+package-email: swat.somebug@gmail.com
+
+depends: * build2 >= 0.15.0-
+depends: * bpkg >= 0.15.0-
+depends: libimgui-platform-glfw == $
+depends: libimgui-platform-osx == $ ? ($cxx.target.class == 'macos')
+depends: libimgui-platform-win32 == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx9 == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx10 == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx11 == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx12 == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-metal == $ ? ($cxx.target.class == 'macos')
+depends: libimgui-render-opengl2 == $
+depends: libimgui-render-opengl3 == $
+depends: libimgui-render-vulkan == $

@@ -1,0 +1,15 @@
+targets = example_glfw_opengl2/ example_glfw_opengl3/ example_glfw_vulkan/ legal{LICENSE.txt} doc{README.md} manifest
+
+switch $cxx.target.class
+{
+    case 'windows'
+    {
+        targets += example_win32_directx9/ example_win32_directx10/ example_win32_directx11/ example_win32_directx12/
+    }
+    case 'macos'
+    {
+        # targets += example_apple_metal/ example_apple_opengl/ example_glfw_metal/
+    }
+}
+
+./: $targets

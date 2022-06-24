@@ -1,19 +1,39 @@
 # imgui
 
-`build2` package for [`imgui`](https://github.com/ocornut/imgui) C++ GUI library.
+`build2` packages for the [`imgui`](https://github.com/ocornut/imgui) C++ GUI library.
 
-This package supports various `imgui` [backends](https://github.com/ocornut/imgui/blob/master/docs/BACKENDS.md) using build configuration variables `config.imgui.platformbackend`(default = `glfw`) and `config.imgui.renderbackend`(default = `opengl3`).
+This package repository supports various `imgui` [backends](https://github.com/ocornut/imgui/blob/master/docs/BACKENDS.md) for platforms and rendering.
 
-The following the values are supported
+## Usage
+
+Simply add the backend package which you want to use in your `manifest`.
+Note that you need to use at least one render and one platform backend, but projects can also depend on more than a single backend.
+If you want to link statically or dynamically against imgui make sure the core library and all backends you depend on us the same "mode". It is either all static or all dynamic.
+
+The following platform backend packages are available
+
 ```
-config.imgui.platformbackend = [android, glfw, osx, sdl, win32, glut]
-config.imgui.renderbackend = [dx9, dx10, dx11, dx12, metal, opengl2, opengl3 sdlrenderer, vulkan, wgpu]
+depends: libimgui-platform-glfw
+depends: libimgui-platform-osx
+depends: libimgui-platform-win32
 ```
 
-Additionally, high-level framework backends (which overwrite `platformbackend` and `renderbackend`) are supported using the configuration variable
-```
-config.imgui.hlframeworkbackend = [allegro, marmalade]
-```
-By default however, `hlframworkbackend` is set to `none`.
+The following render backend packages are available
 
-The easiest way to use `imgui` with custom backends is to set `platformbackend`, `renderbackend` and `hlframworkbackend` to empty strings and link the custom backend along with `imgui` into an executable/library.
+```
+depends: libimgui-render-dx9
+depends: libimgui-render-dx10
+depends: libimgui-render-dx11
+depends: libimgui-render-dx12
+depends: libimgui-render-metal
+depends: libimgui-render-opengl2
+depends: libimgui-render-opengl3
+```
+
+Headers are included without any prefix, for example:
+
+```c++
+#include <imgui_impl_opengl2.h>
+```
+
+See also the `imgui-examples` package for examples on how to build executables with the package.
