@@ -1,0 +1,5 @@
+import intf_libs += libimgui%lib{imgui}
+
+exe{null-test}: {hxx cxx}{**} $intf_libs testscript
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
