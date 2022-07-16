@@ -1,4 +1,4 @@
-project = libimgui-test
+project = libimgui-null-backend-test
 
 using version
 using config

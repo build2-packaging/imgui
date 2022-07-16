@@ -1,8 +1,8 @@
 : 1
-name: libimgui-test
+name: libimgui-null-backend-test
 version: 1.86.0-a.0.z
 project: imgui
-summary: libimgui-test for libimgui
+summary: libimgui-null-backend-test for libimgui
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui
