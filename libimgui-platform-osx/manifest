@@ -12,6 +12,7 @@ src-url : https://github.com/ocornut/imgui
 package-url: https://github.com/build2-packaging/imgui
 package-email: swat.somebug@gmail.com
 
+builds: &( +macos -gcc )
 depends: * build2 >= 0.15.0-
 depends: * bpkg >= 0.15.0-
 depends: libimgui == $
