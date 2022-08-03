@@ -5,21 +5,22 @@ platform_libs = -framework AppKit -framework ModelIO -framework Metal -framework
 platform_coptions = -fobjc-weak
 
 lib{imgui-render-metal}: {hxx cxx}{**} $intf_libs
+lib{imgui-render-metal}: cxx.pkgconfig.include = include/ include/imgui/backends/
 
 cxx.libs += $platform_libs
-cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_IMPL_EXPORT
+cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
 
 # Export options.
 lib{imgui-render-metal}:
 {
-    cxx.export.poptions = "-I$out_base" "-I$src_base"
+    cxx.export.poptions = "-I$out_base/backends" "-I$src_base/backends" "-I$out_root" "-I$src_root"
     cxx.export.libs = $intf_libs $platform_libs
 }
 
 define mm: file
 mm{*}: extension = mm
 
-objcxx_files = $name(mm{*})
+objcxx_files = $name(mm{**})
 
 [rule_hint=cxx] libul{imgui-render-metal-meta}: $intf_libs
 
@@ -36,7 +37,7 @@ obja{~'/(.*).a/'}: mm{~'/\1/'} libua{imgui-render-metal-meta}
 {{
     dep_poptions = $cxx.lib_poptions(libua{imgui-render-metal-meta}, obja)
     depdb hash $dep_poptions
-    depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
+    depdb dyndep "-I$out_root/imgui/backends" "-I$src_root/imgui/backends" \
                  --what=header --default-type=h \
                  --update-exclude libua{imgui-render-metal-meta} \
                  -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
@@ -50,7 +51,7 @@ objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-render-metal-meta}
 {{
     dep_poptions = $cxx.lib_poptions(libus{imgui-render-metal-meta}, objs)
     depdb hash $dep_poptions
-    depdb dyndep "-I$out_root/imgui" "-I$src_root/imgui" \
+    depdb dyndep "-I$out_root/imgui/backends" "-I$src_root/imgui/backends" \
                  --what=header --default-type=h \
                  --update-exclude libus{imgui-render-metal-meta} \
                  -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
@@ -71,5 +72,6 @@ else
 
 hxx{*}:
 {
-    install = include/imgui/backends/
+    install = include/imgui/
+    install.subdirs = true
 }
