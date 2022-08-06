@@ -20,18 +20,26 @@ lib{imgui-render-metal}:
 define mm: file
 mm{*}: extension = mm
 
-objcxx_files = $name(mm{**})
+objcxx_files = mm{**}
+obj_dyn =
+obj_stat =
 
 [rule_hint=cxx] libul{imgui-render-metal-meta}: $intf_libs
 
-for n: $objcxx_files
+for file: $objcxx_files
 {
-    obja{$(n).a.o}: mm{$n}
-    objs{$(n).so.o}: mm{$n}
+    p = "$directory($file)/$name($file)"
+    oa = "$(p).a.o"
+    os = "$(p).so.o"
+    obja{$oa}: $file
+    objs{$os}: $file
+
+    obj_dyn += $os
+    obj_stat += $oa
 }
 
-liba{imgui-render-metal}: obja{$regex.apply($objcxx_files,'(.+)','\1.a.o')}
-libs{imgui-render-metal}: objs{$regex.apply($objcxx_files,'(.+)','\1.so.o')}
+liba{imgui-render-metal}: obja{$obj_stat}
+libs{imgui-render-metal}: objs{$obj_dyn}
 
 obja{~'/(.*).a/'}: mm{~'/\1/'} libua{imgui-render-metal-meta}
 {{
