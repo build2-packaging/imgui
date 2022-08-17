@@ -7,10 +7,10 @@ cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT
 # Export options.
 lib{imgui}:
 {
-    cxx.export.poptions = "-I$out_base" "-I$src_base"
+    cxx.export.poptions = "-I$out_base" "-I$src_base" "-I$out_root" "-I$src_root"
 }
 
-lib{imgui}: cxx.pkgconfig.include = include/imgui/ include/imgui/backends/
+lib{imgui}: cxx.pkgconfig.include = include/ include/imgui/
 
 liba{imgui}: cxx.export.poptions += -DIMGUI_STATIC
 

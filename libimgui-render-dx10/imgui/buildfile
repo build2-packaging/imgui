@@ -8,14 +8,15 @@ else
 	platform_libs += d3d10.lib d3dcompiler.lib
 
 lib{imgui-render-dx10}: {hxx cxx}{**} $intf_libs
+lib{imgui-render-dx10}: cxx.pkgconfig.include = include/ include/imgui/backends/
 
 cxx.libs += $platform_libs
-cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_IMPL_EXPORT
+cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
 
 # Export options.
 lib{imgui-render-dx10}:
 {
-    cxx.export.poptions = "-I$out_base" "-I$src_base"
+    cxx.export.poptions = "-I$out_base/backends" "-I$src_base/backends" "-I$out_root" "-I$src_root"
     cxx.export.libs = $intf_libs $platform_libs
 }
 
@@ -29,5 +30,6 @@ else
 
 hxx{*}:
 {
-    install = include/imgui/backends/
+    install = include/imgui/
+    install.subdirs = true
 }
