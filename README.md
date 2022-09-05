@@ -36,4 +36,4 @@ Headers are included without any prefix, for example:
 #include <imgui_impl_opengl2.h>
 ```
 
-See also the `imgui-examples` package for examples on how to build executables with the package.
+See also the `libimgui-examples` package for examples on how to build executables with the package.

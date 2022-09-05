@@ -1,5 +1,5 @@
 : 1
-name: imgui-examples
+name: libimgui-examples
 version: 1.86.0-a.0.z
 project: imgui
 summary: Executable examples of usage of the Dear ImGui library
