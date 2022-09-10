@@ -1,0 +1,6 @@
+: 1
+name: libimgui-platform-glfw
+version: 1.86.0
+project: imgui
+summary: Dear ImGui platform backend for GLFW
+license: MIT
