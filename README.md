@@ -30,10 +30,16 @@ depends: libimgui-render-opengl2
 depends: libimgui-render-opengl3
 ```
 
-Headers are included without any prefix, for example:
+Headers can be included with or without a `imgui/` prefix, for example:
 
 ```c++
+// without prefix
+#include <imgui.h>
 #include <imgui_impl_opengl2.h>
+
+// with prefix
+#include <imgui/imgui.h>
+#include <imgui/backends/imgui_impl_opengl2.h>
 ```
 
 See also the `libimgui-examples` package for examples on how to build executables with the package.
