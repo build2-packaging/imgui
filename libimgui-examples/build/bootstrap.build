@@ -1,4 +1,4 @@
-project = imgui-examples
+project = libimgui-examples
 
 using version
 using config

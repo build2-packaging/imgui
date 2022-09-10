@@ -23,6 +23,6 @@ location: libimgui-render-opengl3/
 :
 location: libimgui-render-vulkan/
 :
-location: imgui-examples/
+location: libimgui-examples/
 :
 location: libimgui-null-backend-test/
