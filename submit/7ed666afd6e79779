@@ -1,0 +1,6 @@
+: 1
+name: libimgui-platform-win32
+version: 1.87.0
+project: imgui
+summary: Dear ImGui platform backend for Win32
+license: MIT

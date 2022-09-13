@@ -1,0 +1,6 @@
+: 1
+name: libimgui-render-opengl3
+version: 1.87.0
+project: imgui
+summary: Dear ImGui render backend for OpenGL 3
+license: MIT

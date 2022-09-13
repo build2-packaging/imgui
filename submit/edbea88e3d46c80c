@@ -1,0 +1,6 @@
+: 1
+name: libimgui-render-dx10
+version: 1.87.0
+project: imgui
+summary: Dear ImGui render backend for DirectX 10
+license: MIT
