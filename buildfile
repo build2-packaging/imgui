@@ -1,8 +1,10 @@
-import pkgs = {libimgui/ libimgui-platform-glfw/ libimgui-render-opengl2/ libimgui-render-opengl3/ libimgui-render-vulkan/ libimgui-examples/}
+import pkgs = libimgui/
 
-using cxx
+libimgui = [dir_path] $pkgs
 
-switch $cxx.target.class
+import pkgs += libimgui-platform-glfw/ libimgui-render-opengl2/ libimgui-render-opengl3/ libimgui-render-vulkan/ libimgui-examples/
+
+switch $($libimgui/ cxx.target.class)
 {
     case 'windows'
     {
