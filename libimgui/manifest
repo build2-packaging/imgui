@@ -1,6 +1,6 @@
 : 1
 name: libimgui
-version: 1.86.0
+version: 1.87.0
 project: imgui
 summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies
 license: MIT

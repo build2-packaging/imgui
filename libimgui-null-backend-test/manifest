@@ -1,6 +1,6 @@
 : 1
 name: libimgui-null-backend-test
-version: 1.86.0
+version: 1.87.0
 project: imgui
 summary: Package using Dear ImGui's example_null backend to test libimgui.
 license: MIT
