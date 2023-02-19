@@ -1,0 +1,12 @@
+# Basic dependabot.yml file with
+# minimum configuration for two package managers
+
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "gitsubmodule"
+    # Look for `submodules` in the `root` directory
+    directory: "/"
+    # Checkout the submodule for updates every day (weekdays)
+    schedule:
+      interval: "daily"
