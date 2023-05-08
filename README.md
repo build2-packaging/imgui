@@ -28,6 +28,7 @@ depends: libimgui-render-dx12
 depends: libimgui-render-metal
 depends: libimgui-render-opengl2
 depends: libimgui-render-opengl3
+depends: libimgui-render-vulkan
 ```
 
 Headers can be included with or without a `imgui/` prefix, for example:
