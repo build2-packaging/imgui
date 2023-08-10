@@ -43,3 +43,16 @@ Headers can be included with or without a `imgui/` prefix, for example:
 ```
 
 See also the `libimgui-examples` package for examples on how to build executables with the package.
+
+## Configuration
+
+The following imgui configuration options are exposed as config variables via the [`libimgui package`](./libimgui/build/root.build). Refer to [`imconfig.h`](https://github.com/ocornut/imgui/blob/master/imconfig.h) for documentation.
+```
+config.libimgui.disable
+config.libimgui.disable_demo_windows
+config.libimgui.disable_metrics_window
+config.libimgui.disable_obsolete_functions
+config.libimgui.use_bgra_packed_color
+config.libimgui.use_wchar32
+config.libimgui.use_32bit_indices
+```
