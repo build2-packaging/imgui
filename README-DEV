@@ -1,5 +1,0 @@
-# Development Notes
-
-The header file `imconfig.h` in the `imgui` package is actually not symlinked but was copied and edited to make certain features available from build2.
-
-If the upstream version is updated, this file has to be revised and adjusted, if needed by the new version.
