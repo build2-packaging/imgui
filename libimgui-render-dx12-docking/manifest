@@ -1,0 +1,18 @@
+: 1
+name: libimgui-render-dx12-docking
+version: 1.90.8
+project: imgui
+summary: Dear ImGui render backend for DirectX 12
+license: MIT
+description-file: README.md
+url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url : https://github.com/ocornut/imgui
+package-url: https://github.com/build2-packaging/imgui
+package-email: swat.somebug@gmail.com
+
+builds: &( +windows -gcc )
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+depends: libimgui-docking == $

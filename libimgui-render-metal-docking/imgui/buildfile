@@ -1,0 +1,85 @@
+intf_libs = # Interface dependencies.
+import intf_libs += libimgui-docking%lib{imgui-docking}
+
+platform_libs = -framework AppKit -framework ModelIO -framework Metal -framework MetalKit -framework GameController -framework QuartzCore
+platform_coptions = -fobjc-weak
+
+lib{imgui-render-metal-docking}: {hxx cxx}{**} $intf_libs
+lib{imgui-render-metal-docking}: cxx.pkgconfig.include = include/ include/imgui/backends/
+
+cxx.libs += $platform_libs
+cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
+
+# Export options.
+lib{imgui-render-metal-docking}:
+{
+    cxx.export.poptions = "-I$out_base/backends" "-I$src_base/backends" "-I$out_root" "-I$src_root"
+    cxx.export.libs = $intf_libs $platform_libs
+}
+
+define mm: file
+mm{*}: extension = mm
+
+objcxx_files = mm{**}
+obj_dyn =
+obj_stat =
+
+[rule_hint=cxx] libul{imgui-render-metal-docking-meta}: $intf_libs
+
+for file: $objcxx_files
+{
+    p = "$directory($file)/$name($file)"
+    oa = "$(p).a.o"
+    os = "$(p).so.o"
+    obja{$oa}: $file
+    objs{$os}: $file
+
+    obj_dyn += $os
+    obj_stat += $oa
+}
+
+liba{imgui-render-metal-docking}: obja{$obj_stat}
+libs{imgui-render-metal-docking}: objs{$obj_dyn}
+
+obja{~'/(.*).a/'}: mm{~'/\1/'} libua{imgui-render-metal-docking-meta}
+{{
+    dep_poptions = $cxx.lib_poptions(libua{imgui-render-metal-docking-meta}, obja)
+    depdb hash $dep_poptions
+    depdb dyndep "-I$out_root/imgui/backends" "-I$src_root/imgui/backends" \
+                 --what=header --default-type=h \
+                 --update-exclude libua{imgui-render-metal-docking-meta} \
+                 -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
+                    $cc.coptions $cxx.coptions $platform_coptions $cxx.mode -M -MG $path($<[0])
+    diag obj-c++ ($<[0])
+    $cxx.path $cc.poptions $cxx.poptions $dep_poptions    \
+              $cc.coptions $cxx.coptions $platform_coptions $cxx.mode        \
+              -o $path($>) -c -x objective-c++ $path($<[0])
+}}
+objs{~'/(.*).so/'}: mm{~'/\1/'} libus{imgui-render-metal-docking-meta}
+{{
+    dep_poptions = $cxx.lib_poptions(libus{imgui-render-metal-docking-meta}, objs)
+    depdb hash $dep_poptions
+    depdb dyndep "-I$out_root/imgui/backends" "-I$src_root/imgui/backends" \
+                 --what=header --default-type=h \
+                 --update-exclude libus{imgui-render-metal-docking-meta} \
+                 -- $cxx.path $cc.poptions $cxx.poptions $dep_poptions \
+                    $cc.coptions $cxx.coptions $platform_coptions $cxx.mode -M -MG $path($<[0])
+    diag obj-c++ ($<[0])
+    $cxx.path $cc.poptions $cxx.poptions $dep_poptions    \
+              $cc.coptions $cxx.coptions $platform_coptions $cxx.mode        \
+              -o $path($>) -c -x objective-c++ $path($<[0])
+}}
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+    lib{imgui-render-metal-docking}: bin.lib.version = "-$version.project_id"
+else
+    lib{imgui-render-metal-docking}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+    install = include/imgui-docking/
+    install.subdirs = true
+}

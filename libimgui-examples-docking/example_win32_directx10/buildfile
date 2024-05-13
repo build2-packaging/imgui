@@ -1,0 +1,5 @@
+impl_libs = # Implementation libs.
+import impl_libs += libimgui-platform-win32-docking%lib{imgui-platform-win32-docking}
+import impl_libs += libimgui-render-dx10-docking%lib{imgui-render-dx10-docking}
+
+exe{example_win32_dx10} : cxx{*} $impl_libs

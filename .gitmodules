@@ -1,3 +1,6 @@
 [submodule "upstream"]
 	path = upstream
 	url = https://github.com/ocornut/imgui.git
+[submodule "upstream-docking"]
+	path = upstream-docking
+	url = https://github.com/ocornut/imgui

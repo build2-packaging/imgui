@@ -1,0 +1,7 @@
+project = libimgui-render-opengl2-docking
+
+using version
+using config
+using test
+using install
+using dist

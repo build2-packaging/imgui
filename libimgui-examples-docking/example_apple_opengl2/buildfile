@@ -1,0 +1,3 @@
+impl_libs = # Implementation libs.
+import impl_libs += libimgui-platform-osx-docking%lib{imgui-platform-osx-docking}
+import impl_libs += libimgui-render-opengl2-docking%lib{imgui-render-opengl2-docking}

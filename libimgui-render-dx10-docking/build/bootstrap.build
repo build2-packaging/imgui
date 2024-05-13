@@ -1,0 +1,7 @@
+project = libimgui-render-dx10-docking
+
+using version
+using config
+using test
+using install
+using dist

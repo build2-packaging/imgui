@@ -1,0 +1,5 @@
+impl_libs = # Implementation libs.
+import impl_libs += libimgui-platform-glfw-docking%lib{imgui-platform-glfw-docking}
+import impl_libs += libimgui-render-vulkan-docking%lib{imgui-render-vulkan-docking}
+
+exe{example_glfw_vulkan_docking} : cxx{*} $impl_libs

@@ -1,0 +1,1 @@
+../../upstream-docking/examples/example_win32_directx10/main.cpp

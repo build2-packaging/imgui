@@ -1,0 +1,28 @@
+# Uncomment to suppress warnings coming from external libraries.
+#
+#cxx.internal.scope = current
+
+cxx.std = latest
+
+using cxx
+
+hxx{*}: extension = h
+cxx{*}: extension = cpp
+
+# Assume headers are importable unless stated otherwise.
+#
+hxx{*}: cxx.importable = true
+
+# The test target for cross-testing (running tests under Wine, etc).
+#
+test.target = $cxx.target
+
+# ImGui configuration variables
+# For more information, refer to libimgui-docking/imgui/imconfig.h
+config [bool] config.libimgui_docking.disable                    ?= false # Disables all ImGui functionality
+config [bool] config.libimgui_docking.disable_demo_windows       ?= false
+config [bool] config.libimgui_docking.disable_metrics_window     ?= false
+config [bool] config.libimgui_docking.disable_obsolete_functions ?= false
+config [bool] config.libimgui_docking.use_bgra_packed_color      ?= false
+config [bool] config.libimgui_docking.use_wchar32                ?= false
+config [bool] config.libimgui_docking.use_32bit_indices          ?= false

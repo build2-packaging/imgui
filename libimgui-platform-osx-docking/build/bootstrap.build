@@ -1,0 +1,7 @@
+project = libimgui-platform-osx-docking
+
+using version
+using config
+using test
+using install
+using dist
