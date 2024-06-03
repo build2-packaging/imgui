@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-osx
-version: 1.90.6
+version: 1.90.7
 project: imgui
 summary: Dear ImGui platform backend for OSX
 license: MIT
