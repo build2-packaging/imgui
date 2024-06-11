@@ -14,5 +14,5 @@ package-email: swat.somebug@gmail.com
 
 depends: * build2 >= 0.15.0
 depends: * bpkg >= 0.15.0
-depends: libimgui == $
+depends: libimgui-docking == $
 depends: libvulkan-meta ^1.0.0
