@@ -1,7 +1,7 @@
 intf_libs = # Interface dependencies.
 import intf_libs += libimgui%lib{imgui}
 
-platform_libs = -framework AppKit -framework ModelIO -framework GameController -framework QuartzCore
+platform_libs = -framework AppKit -framework ModelIO -framework GameController
 
 lib{imgui-platform-osx}: {hxx cxx}{**} $intf_libs
 lib{imgui-platform-osx}: cxx.pkgconfig.include = include/ include/imgui/backends/

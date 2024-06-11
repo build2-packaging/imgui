@@ -1,1 +1,1 @@
-../upstream/LICENSE.txt
+../upstream-docking/LICENSE.txt

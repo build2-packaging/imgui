@@ -1,7 +1,7 @@
 intf_libs = # Interface dependencies.
 import intf_libs += libimgui%lib{imgui}
 
-platform_libs = -framework AppKit -framework ModelIO -framework Metal -framework MetalKit -framework GameController -framework QuartzCore
+platform_libs = -framework AppKit -framework ModelIO -framework Metal -framework MetalKit
 platform_coptions = -fobjc-weak
 
 lib{imgui-render-metal}: {hxx cxx}{**} $intf_libs
