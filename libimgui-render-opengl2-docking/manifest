@@ -2,7 +2,7 @@
 name: libimgui-render-opengl2-docking
 version: 1.90.8
 project: imgui
-summary: Dear ImGui render backend for Open GL 2
+summary: Dear ImGui render backend for Open GL 2 ; docking branch
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui

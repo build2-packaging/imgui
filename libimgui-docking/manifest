@@ -2,7 +2,7 @@
 name: libimgui-docking
 version: 1.90.8
 project: imgui
-summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies
+summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies ; docking branch
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui

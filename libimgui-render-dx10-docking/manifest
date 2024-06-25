@@ -2,7 +2,7 @@
 name: libimgui-render-dx10-docking
 version: 1.90.8
 project: imgui
-summary: Dear ImGui render backend for DirectX 10
+summary: Dear ImGui render backend for DirectX 10 ; docking branch
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui

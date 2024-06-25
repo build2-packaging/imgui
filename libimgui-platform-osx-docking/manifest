@@ -2,7 +2,7 @@
 name: libimgui-platform-osx-docking
 version: 1.90.8
 project: imgui
-summary: Dear ImGui platform backend for OSX
+summary: Dear ImGui platform backend for OSX ; docking branch
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui

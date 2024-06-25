@@ -2,7 +2,7 @@
 name: libimgui-examples-docking
 version: 1.90.8
 project: imgui
-summary: Executable examples of usage of the Dear ImGui library
+summary: Executable examples of usage of the Dear ImGui library ; docking branch
 license: MIT
 description-file: README.md
 url: https://github.com/ocornut/imgui
