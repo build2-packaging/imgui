@@ -1,0 +1,2 @@
+./: {example_glfw_opengl2/ example_glfw_opengl3/ example_glfw_vulkan/} legal{LICENSE.txt} doc{README.md} manifest
+./: {example_win32_directx9/ example_win32_directx10/ example_win32_directx11/ example_win32_directx12/}: include = ($cxx.target.class == 'windows')

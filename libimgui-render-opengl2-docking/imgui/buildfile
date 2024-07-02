@@ -1,0 +1,29 @@
+intf_libs = # Interface dependencies.
+import intf_libs += libopengl-meta%lib{opengl-gl}
+import intf_libs += libimgui-docking%lib{imgui-docking}
+
+lib{imgui-render-opengl2-docking}: {hxx cxx}{**} $intf_libs
+lib{imgui-render-opengl2-docking}: cxx.pkgconfig.include = include/ include/imgui/backends/
+
+cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
+
+# Export options.
+lib{imgui-render-opengl2-docking}:
+{
+    cxx.export.poptions = "-I$out_base/backends" "-I$src_base/backends" "-I$out_root" "-I$src_root"
+    cxx.export.libs = $intf_libs
+}
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+    lib{imgui-render-opengl2-docking}: bin.lib.version = "-$version.project_id"
+else
+    lib{imgui-render-opengl2-docking}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+    install = include/imgui-docking/
+    install.subdirs = true
+}

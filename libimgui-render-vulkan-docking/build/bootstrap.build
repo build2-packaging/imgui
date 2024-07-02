@@ -1,0 +1,7 @@
+project = libimgui-render-vulkan-docking
+
+using version
+using config
+using test
+using install
+using dist

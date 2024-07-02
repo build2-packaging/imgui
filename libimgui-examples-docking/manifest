@@ -1,0 +1,27 @@
+: 1
+name: libimgui-examples-docking
+version: 1.90.8
+project: imgui
+summary: Executable examples of usage of the Dear ImGui library ; docking branch
+license: MIT
+description-file: README.md
+url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url : https://github.com/ocornut/imgui
+package-url: https://github.com/build2-packaging/imgui
+package-email: swat.somebug@gmail.com
+
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+depends: libimgui-platform-glfw-docking == $
+depends: libimgui-platform-osx-docking == $ ? ($cxx.target.class == 'macos')
+depends: libimgui-platform-win32-docking == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx9-docking == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx10-docking == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx11-docking == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-dx12-docking == $ ? ($cxx.target.class == 'windows')
+depends: libimgui-render-metal-docking == $ ? ($cxx.target.class == 'macos')
+depends: libimgui-render-opengl2-docking == $
+depends: libimgui-render-opengl3-docking == $
+depends: libimgui-render-vulkan-docking == $

@@ -1,28 +1,56 @@
 : 1
 location: libimgui/
 :
+location: libimgui-docking/
+:
 location: libimgui-platform-glfw/
+:
+location: libimgui-platform-glfw-docking/
 :
 location: libimgui-platform-osx/
 :
+location: libimgui-platform-osx-docking/
+:
 location: libimgui-platform-win32/
+:
+location: libimgui-platform-win32-docking/
 :
 location: libimgui-render-dx9/
 :
+location: libimgui-render-dx9-docking/
+:
 location: libimgui-render-dx10/
+:
+location: libimgui-render-dx10-docking/
 :
 location: libimgui-render-dx11/
 :
+location: libimgui-render-dx11-docking/
+:
 location: libimgui-render-dx12/
+:
+location: libimgui-render-dx12-docking/
 :
 location: libimgui-render-metal/
 :
+location: libimgui-render-metal-docking/
+:
 location: libimgui-render-opengl2/
+:
+location: libimgui-render-opengl2-docking/
 :
 location: libimgui-render-opengl3/
 :
+location: libimgui-render-opengl3-docking/
+:
 location: libimgui-render-vulkan/
+:
+location: libimgui-render-vulkan-docking/
 :
 location: libimgui-examples/
 :
+location: libimgui-examples-docking/
+:
 location: libimgui-null-backend-test/
+:
+location: libimgui-null-backend-test-docking/

@@ -1,0 +1,7 @@
+project = libimgui-examples-docking
+
+using version
+using config
+using test
+using install
+using dist

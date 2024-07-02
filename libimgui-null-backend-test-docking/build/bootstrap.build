@@ -1,0 +1,7 @@
+project = libimgui-null-backend-test-docking
+
+using version
+using config
+using test
+using install
+using dist

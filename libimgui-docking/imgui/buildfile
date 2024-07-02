@@ -1,0 +1,44 @@
+lib{imgui-docking}: {cxx hxx}{*}
+
+imconfig_poptions =
+if $config.libimgui_docking.disable
+    imconfig_poptions += '-DIMGUI_DISABLE'
+if $config.libimgui_docking.disable_demo_windows
+    imconfig_poptions += '-DIMGUI_DISABLE_DEMO_WINDOWS'
+if $config.libimgui_docking.disable_metrics_window
+    imconfig_poptions += '-DIMGUI_DISABLE_METRICS_WINDOW'
+if $config.libimgui_docking.disable_obsolete_functions
+    imconfig_poptions += '-DIMGUI_DISABLE_OBSOLETE_FUNCTIONS'
+if $config.libimgui_docking.use_bgra_packed_color
+    imconfig_poptions += '-DIMGUI_USE_BGRA_PACKED_COLOR'
+if $config.libimgui_docking.use_wchar32
+    imconfig_poptions += '-DIMGUI_USE_WCHAR32'
+if $config.libimgui_docking.use_32bit_indices
+    imconfig_poptions += '-DImDrawIdx=unsigned int'
+
+cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT $imconfig_poptions
+
+{hbmia obja}{*}: cxx.poptions += -DIMGUI_STATIC
+
+# Export options.
+lib{imgui-docking}:
+{
+    cxx.export.poptions = "-I$out_base" "-I$src_base" "-I$out_root" "-I$src_root" $imconfig_poptions
+}
+
+lib{imgui-docking}: cxx.pkgconfig.include = include/ include/imgui/
+
+liba{imgui-docking}: cxx.export.poptions += -DIMGUI_STATIC
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+    lib{imgui-docking}: bin.lib.version = "-$version.project_id"
+else
+    lib{imgui-docking}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+    install = include/imgui-docking/
+}

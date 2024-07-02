@@ -1,0 +1,10 @@
+: basics
+:
+$* &?imgui.ini >>~%EOM%
+%(
+%NewFrame\(\) .*%
+%){20}
+DestroyContext()
+EOM
+
+

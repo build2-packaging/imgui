@@ -1,0 +1,5 @@
+impl_libs = # Implementation libs.
+import impl_libs += libimgui-platform-glfw-docking%lib{imgui-platform-glfw-docking}
+import impl_libs += libimgui-render-opengl2-docking%lib{imgui-render-opengl2-docking}
+
+exe{example_glfw_opengl2_docking} : cxx{*} $impl_libs
