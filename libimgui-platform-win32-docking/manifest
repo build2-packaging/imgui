@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-win32-docking
-version: 1.90.8
+version: 1.90.8+1
 project: imgui
 summary: Dear ImGui platform backend for Win32 ; docking branch
 license: MIT
