@@ -2,7 +2,7 @@ intf_libs = # Interface dependencies.
 import intf_libs += libimgui-docking%lib{imgui-docking}
 
 lib{imgui-platform-win32-docking}: {hxx cxx}{**} $intf_libs
-lib{imgui-platform-win32-docking}: cxx.pkgconfig.include = include/ include/imgui/backends/
+lib{imgui-platform-win32-docking}: cxx.pkgconfig.include = include/ include/imgui-docking/backends/
 
 cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
 

@@ -26,7 +26,7 @@ lib{imgui-docking}:
     cxx.export.poptions = "-I$out_base" "-I$src_base" "-I$out_root" "-I$src_root" $imconfig_poptions
 }
 
-lib{imgui-docking}: cxx.pkgconfig.include = include/ include/imgui/
+lib{imgui-docking}: cxx.pkgconfig.include = include/ include/imgui-docking/
 
 liba{imgui-docking}: cxx.export.poptions += -DIMGUI_STATIC
 
