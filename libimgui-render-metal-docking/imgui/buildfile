@@ -5,7 +5,7 @@ platform_libs = -framework AppKit -framework ModelIO -framework Metal -framework
 platform_coptions = -fobjc-weak
 
 lib{imgui-render-metal-docking}: {hxx cxx}{**} $intf_libs
-lib{imgui-render-metal-docking}: cxx.pkgconfig.include = include/ include/imgui/backends/
+lib{imgui-render-metal-docking}: cxx.pkgconfig.include = include/ include/imgui-docking/backends/
 
 cxx.libs += $platform_libs
 cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
