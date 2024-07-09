@@ -1,0 +1,7 @@
+: 1
+name: libimgui-examples-docking
+version: 1.90.8+2
+project: imgui
+summary: Executable examples of usage of the Dear ImGui library ; docking\
+ branch
+license: MIT
