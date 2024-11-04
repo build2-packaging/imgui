@@ -1,0 +1,7 @@
+: 1
+name: libimgui-docking
+version: 1.91.4
+project: imgui
+summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal\
+ dependencies ; docking branch
+license: MIT
