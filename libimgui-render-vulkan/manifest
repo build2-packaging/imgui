@@ -1,6 +1,6 @@
 : 1
 name: libimgui-render-vulkan
-version: 1.91.0
+version: 1.91.4
 project: imgui
 summary: Dear ImGui render backend for Vulkan
 license: MIT
@@ -12,7 +12,7 @@ src-url : https://github.com/ocornut/imgui
 package-url: https://github.com/build2-packaging/imgui
 package-email: swat.somebug@gmail.com
 
-depends: * build2 >= 0.15.0
-depends: * bpkg >= 0.15.0
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
 depends: libimgui == $
 depends: libvulkan-meta ^1.0.0

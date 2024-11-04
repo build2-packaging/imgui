@@ -1,6 +1,6 @@
 : 1
 name: libimgui-examples
-version: 1.91.0
+version: 1.91.4
 project: imgui
 summary: Executable examples of usage of the Dear ImGui library
 license: MIT
@@ -12,8 +12,8 @@ src-url : https://github.com/ocornut/imgui
 package-url: https://github.com/build2-packaging/imgui
 package-email: swat.somebug@gmail.com
 
-depends: * build2 >= 0.15.0
-depends: * bpkg >= 0.15.0
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
 depends: libimgui-platform-glfw == $
 depends: libimgui-platform-osx == $ ? ($cxx.target.class == 'macos')
 depends: libimgui-platform-win32 == $ ? ($cxx.target.class == 'windows')

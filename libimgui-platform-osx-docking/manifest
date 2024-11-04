@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-osx-docking
-version: 1.91.0
+version: 1.91.4
 project: imgui
 summary: Dear ImGui platform backend for OSX ; docking branch
 license: MIT
@@ -13,6 +13,6 @@ package-url: https://github.com/build2-packaging/imgui
 package-email: swat.somebug@gmail.com
 
 builds: &( +macos -gcc )
-depends: * build2 >= 0.15.0
-depends: * bpkg >= 0.15.0
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
 depends: libimgui-docking == $
