@@ -1,0 +1,7 @@
+: 1
+name: libimgui-null-backend-test-docking
+version: 1.91.6
+project: imgui
+summary: Package using Dear ImGui's example_null backend to test libimgui ;\
+ docking branch
+license: MIT
