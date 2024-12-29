@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-osx-docking
-version: 1.91.4
+version: 1.91.6
 project: imgui
 summary: Dear ImGui platform backend for OSX ; docking branch
 license: MIT
