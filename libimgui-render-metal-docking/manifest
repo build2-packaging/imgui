@@ -1,6 +1,6 @@
 : 1
 name: libimgui-render-metal-docking
-version: 1.91.9-a.1.z
+version: 1.91.9
 project: imgui
 summary: Dear ImGui render backend for Metal ; docking branch
 license: MIT

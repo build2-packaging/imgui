@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-glfw
-version: 1.91.9-a.1.z
+version: 1.91.9
 project: imgui
 summary: Dear ImGui platform backend for GLFW
 license: MIT
