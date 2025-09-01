@@ -19,10 +19,11 @@ test.target = $cxx.target
 
 # ImGui configuration variables
 # For more information, refer to libimgui/imgui/imconfig.h
-config [bool]    config.libimgui.disable								?= false	# Disables all ImGui functionality
-config [bool]    config.libimgui.disable_demo_windows					?= false
-config [bool]    config.libimgui.disable_metrics_window					?= false
-config [bool]    config.libimgui.disable_obsolete_functions				?= false
-config [bool]    config.libimgui.use_bgra_packed_color					?= false
-config [bool]    config.libimgui.use_wchar32							?= false
-config [bool]    config.libimgui.use_32bit_indices						?= false
+config [bool] config.libimgui.disable                          ?= false # Disables all ImGui functionality
+config [bool] config.libimgui.disable_demo_windows             ?= false
+config [bool] config.libimgui.disable_metrics_window           ?= false
+config [bool] config.libimgui.disable_obsolete_functions       ?= false
+config [bool] config.libimgui.use_bgra_packed_color            ?= false
+config [bool] config.libimgui.use_wchar32                      ?= false
+config [bool] config.libimgui.use_32bit_indices                ?= false
+config [bool] config.libimgui.debug_highlight_all_id_conflicts ?= false

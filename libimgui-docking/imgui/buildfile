@@ -15,6 +15,8 @@ if $config.libimgui_docking.use_wchar32
     imconfig_poptions += '-DIMGUI_USE_WCHAR32'
 if $config.libimgui_docking.use_32bit_indices
     imconfig_poptions += '-DImDrawIdx=unsigned int'
+if $config.libimgui_docking.debug_highlight_all_id_conflicts
+    imconfig_poptions += '-DIMGUI_DEBUG_HIGHLIGHT_ALL_ID_CONFLICTS'
 
 cxx.poptions += "-I$out_base" "-I$src_base" -DIMGUI_EXPORT $imconfig_poptions
 

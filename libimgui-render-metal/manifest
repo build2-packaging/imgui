@@ -1,6 +1,6 @@
 : 1
 name: libimgui-render-metal
-version: 1.91.9
+version: 1.92.2
 project: imgui
 summary: Dear ImGui render backend for Metal
 license: MIT
