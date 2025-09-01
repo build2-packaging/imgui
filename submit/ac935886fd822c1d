@@ -1,0 +1,6 @@
+: 1
+name: libimgui-render-dx11
+version: 1.92.2
+project: imgui
+summary: Dear ImGui render backend for DirectX 11
+license: MIT
