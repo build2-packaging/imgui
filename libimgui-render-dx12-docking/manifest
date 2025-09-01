@@ -1,6 +1,6 @@
 : 1
 name: libimgui-render-dx12-docking
-version: 1.91.9
+version: 1.92.2
 project: imgui
 summary: Dear ImGui render backend for DirectX 12 ; docking branch
 license: MIT

@@ -69,6 +69,7 @@ config.libimgui.disable_obsolete_functions
 config.libimgui.use_bgra_packed_color
 config.libimgui.use_wchar32
 config.libimgui.use_32bit_indices
+config.libimgui.debug_highlight_all_id_conflicts
 
 config.libimgui_docking.disable
 config.libimgui_docking.disable_demo_windows
@@ -77,4 +78,5 @@ config.libimgui_docking.disable_obsolete_functions
 config.libimgui_docking.use_bgra_packed_color
 config.libimgui_docking.use_wchar32
 config.libimgui_docking.use_32bit_indices
+config.libimgui_docking.debug_highlight_all_id_conflicts
 ```
