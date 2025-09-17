@@ -6,6 +6,11 @@ lib{imgui-platform-win32-docking}: cxx.pkgconfig.include = include/ include/imgu
 
 cxx.poptions += "-I$out_base/backends" "-I$src_base/backends" -DIMGUI_IMPL_EXPORT
 
+if($cxx.target.system == 'mingw32')
+  cxx.libs += -ldwmapi -lgdi32
+else
+  cxx.libs += dwmapi.lib gdi32.lib
+
 # Export options.
 lib{imgui-platform-win32-docking}:
 {
