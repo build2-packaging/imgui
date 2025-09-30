@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-glfw-docking
-version: 1.92.3+1
+version: 1.92.3+2
 project: imgui
 summary: Dear ImGui platform backend for GLFW ; docking branch
 license: MIT
