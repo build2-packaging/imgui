@@ -15,4 +15,14 @@ package-email: swat.somebug@gmail.com
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
 depends: libimgui == $
-depends: glfw ^3.3.4
+depends:
+\
+glfw >= 3.4.0
+{
+  require
+  {
+    config.glfw.build_wayland=true
+    config.glfw.build_x11=true
+  }
+}
+\
