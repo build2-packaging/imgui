@@ -21,8 +21,11 @@ glfw >= 3.4.0
 {
   require
   {
-    config.glfw.build_wayland=true
-    config.glfw.build_x11=true
+    if ($cxx.target.class == 'linux')
+    {
+      config.glfw.build_wayland=true
+      config.glfw.build_x11=true
+    }
   }
 }
 \
