@@ -1,0 +1,6 @@
+: 1
+name: libimgui-render-vulkan-docking
+version: 1.92.3+3
+project: imgui
+summary: Dear ImGui render backend for Vulkan ; docking branch
+license: MIT
