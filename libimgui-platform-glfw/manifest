@@ -1,6 +1,6 @@
 : 1
 name: libimgui-platform-glfw
-version: 1.92.3+2
+version: 1.92.3+3
 project: imgui
 summary: Dear ImGui platform backend for GLFW
 license: MIT
@@ -21,8 +21,11 @@ glfw >= 3.4.0
 {
   require
   {
-    config.glfw.build_wayland=true
-    config.glfw.build_x11=true
+    if ($cxx.target.class == 'linux')
+    {
+      config.glfw.build_wayland=true
+      config.glfw.build_x11=true
+    }
   }
 }
 \
