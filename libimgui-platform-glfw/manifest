@@ -19,12 +19,12 @@ depends:
 \
 glfw >= 3.4.0
 {
-  require
+  reflect
   {
     if ($cxx.target.class == 'linux')
     {
-      config.glfw.build_wayland=true
-      config.glfw.build_x11=true
+      config.glfw.build_x11     = $config.libimgui_platform_glfw.build_x11
+      config.glfw.build_wayland = $config.libimgui_platform_glfw.build_wayland
     }
   }
 }

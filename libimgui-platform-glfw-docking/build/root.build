@@ -16,3 +16,8 @@ hxx{*}: cxx.importable = true
 # The test target for cross-testing (running tests under Wine, etc).
 #
 test.target = $cxx.target
+
+# Configuration.
+#
+config [bool] config.libimgui_platform_glfw_docking.build_x11     ?= false
+config [bool] config.libimgui_platform_glfw_docking.build_wayland ?= true
