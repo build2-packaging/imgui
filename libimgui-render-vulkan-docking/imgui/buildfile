@@ -1,6 +1,6 @@
 intf_libs = # Interface dependencies.
-import intf_libs += libimgui-docking%lib{imgui-docking}
-import intf_libs += libvulkan-meta%lib{vulkan}
+import intf_libs += libimgui-docking%lib{imgui-docking} \
+                    libvulkan-loader%lib{vulkan}
 
 lib{imgui-render-vulkan-docking}: {hxx cxx}{**} $intf_libs
 lib{imgui-render-vulkan-docking}: cxx.pkgconfig.include = include/ include/imgui-docking/backends/

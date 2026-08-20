@@ -2,7 +2,10 @@
 #
 #cxx.internal.scope = current
 
-cxx.std = latest
+# Apple SDK headers currently reject C++23/26 enum arithmetic.
+#
+using cxx.guess
+cxx.std = ($cxx.target.class == 'macos' ? 20 : latest)
 
 using cxx
 
