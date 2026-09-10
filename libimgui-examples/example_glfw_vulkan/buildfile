@@ -1,5 +1,21 @@
 impl_libs = # Implementation libs.
-import impl_libs += libimgui-platform-glfw%lib{imgui-platform-glfw}
-import impl_libs += libimgui-render-vulkan%lib{imgui-render-vulkan}
+import impl_libs += libimgui-platform-glfw%lib{imgui-platform-glfw} \
+                    libimgui-render-vulkan%lib{imgui-render-vulkan}
 
-exe{example_glfw_vulkan} : cxx{*} $impl_libs
+# Direct driver loading on macOS: build MoltenVK with the example but do
+# not link it (vk* would collide with the loader). lib{mvk-direct-util}
+# dlopens MVK_DYLIB_PATH at runtime. See libmoltenvk/PACKAGE-README.md.
+#
+import? [metadata, rule_hint=cxx.link] dylib = libmoltenvk%libs{MoltenVK}
+import? util = libmoltenvk%lib{mvk-direct-util}
+
+exe{example_glfw_vulkan}: cxx{main} $impl_libs
+exe{example_glfw_vulkan}: {hxx mm}{macos_surface}: include = ($dylib != [null])
+exe{example_glfw_vulkan}: $dylib:                  include = ($dylib != [null] ? adhoc : false)
+exe{example_glfw_vulkan}: $util:                   include = ($util != [null])
+
+if ($dylib != [null])
+{
+  cxx.poptions += "-DMVK_DYLIB_PATH=\"$posix_string($($dylib: libmoltenvk.dylib_path))\""
+  cxx.libs += -framework Cocoa -framework QuartzCore
+}

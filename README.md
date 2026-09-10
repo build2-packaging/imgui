@@ -58,6 +58,10 @@ Headers can be included with or without a `imgui/` prefix, for example:
 
 See also the `libimgui-examples` or `libimgui-examples-docking` packages for examples on how to build executables with the package.
 
+`libimgui-render-vulkan` links `libvulkan-loader` on every platform and does not select an ICD. A macOS application that needs a Vulkan driver should consume `libmoltenvk` itself. The recommended mode is direct driver loading (`libs{MoltenVK}` as an adhoc prerequisite, plus `lib{mvk-direct-util}`). See `libmoltenvk/PACKAGE-README.md`. The GLFW+Vulkan examples in this repo do that.
+
+GLFW+Vulkan apps should call `glfwInitVulkanLoader(vkGetInstanceProcAddr)` before `glfwInit()` so GLFW uses the linked Khronos loader rather than searching for a system `libvulkan.1.dylib`. On macOS with exclusive direct driver loading, do not use `glfwCreateWindowSurface`: GLFW probes WSI on the loader before the driver exists. Create a `CAMetalLayer` and call `vkCreateMetalSurfaceEXT` instead (see `macos_surface.mm` in the GLFW+Vulkan examples).
+
 ## Configuration
 
 The following imgui configuration options are exposed as config variables via the [`libimgui`](./libimgui/build/root.build) and the [`libimgui docking`](./libimgui-docking/build/root.build) packages. Refer to [`imconfig.h`](https://github.com/ocornut/imgui/blob/master/imconfig.h) for documentation.

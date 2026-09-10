@@ -25,3 +25,4 @@ depends: libimgui-render-metal-docking == $ ? ($cxx.target.class == 'macos')
 depends: libimgui-render-opengl2-docking == $
 depends: libimgui-render-opengl3-docking == $
 depends: libimgui-render-vulkan-docking == $
+depends: libmoltenvk ^1.4.2 ? ($cxx.target.class == 'macos')
