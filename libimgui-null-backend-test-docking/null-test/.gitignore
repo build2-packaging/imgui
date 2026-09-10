@@ -2,4 +2,5 @@ null-test
 
 # Testscript output directory (can be symlink).
 #
-test-null-test
+test-null-test-docking
+null-test-docking
