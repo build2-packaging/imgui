@@ -1,16 +1,42 @@
 : 1
 name: libimgui-platform-glfw
-version: 0.1.0-a.0.z
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
 language: c++
-project: build2-imgui
-summary: imgui-platform-glfw C++ library
-license: MIT ; MIT License.
+project: imgui
+topics: glfw
+keywords: input windowing
+summary: Dear ImGui platform backend for GLFW, docking branch
+license: MIT
 description-file: README.md
 package-description-file: PACKAGE-README.md
 changes-file: CHANGELOG.txt
-url: https://example.org/upstream
-email: upstream@example.org
-package-url: https://github.com/build2-packaging/build2-imgui
+url: https://github.com/ocornut/imgui
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+package-url: https://github.com/build2-packaging/imgui
 package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
+depends: libimgui == $
+depends:
+\
+glfw ^3.4.0
+{
+  enable ($cxx.target.system != 'emscripten')
+
+  prefer
+  {
+    config.glfw.build_x11 = ($cxx.target.class == 'linux' || $cxx.target.class == 'bsd')
+  }
+
+  accept ($config.glfw.build_x11 == ($cxx.target.class == 'linux' || $cxx.target.class == 'bsd'))
+}
+\
+requires: c++11
+requires: clang ? ($cxx.target.class == 'macos')
+
+build-exclude: macos*-gcc** ; Requires Clang on macOS.
+build-exclude: freebsd** ; Requires X11 dev headers.
+build-exclude: **fedora** ; Requires X11 dev headers.
