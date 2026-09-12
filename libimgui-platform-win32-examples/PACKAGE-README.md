@@ -1,45 +1,17 @@
-# libimgui-platform-win32-examples - An executable
+# libimgui-platform-win32-examples - Dear ImGui platform backend for native Win32 (examples)
 
-This is a `build2` package for the [`<UPSTREAM-NAME>`](https://<UPSTREAM-URL>)
-executable. It is a <SUMMARY-OF-FUNCTIONALITY>.
-
-Note that the `libimgui-platform-win32-examples` executable in this package provides `build2` metadata.
-
-
-## Usage
-
-To start using `libimgui-platform-win32-examples` in your project, add the following build-time
-`depends` value to your `manifest`, adjusting the version constraint as
-appropriate:
-
-```
-depends: * libimgui-platform-win32-examples ^<VERSION>
-```
-
-Then import the executable in your `buildfile`:
-
-```
-import! [metadata] <TARGET> = libimgui-platform-win32-examples%exe{<TARGET>}
-```
+This is a `build2` package containing the examples for the
+[Dear ImGui](https://github.com/ocornut/imgui) native Win32 platform
+backend, built from its `docking` branch: `example_win32_directx11`,
+`example_win32_directx12`, `example_win32_opengl3`, and
+`example_win32_vulkan`, all unmodified from upstream.
 
 
 ## Importable targets
 
-This package provides the following importable targets:
-
-```
-exe{<TARGET>}
-```
-
-<DESCRIPTION-OF-IMPORTABLE-TARGETS>
+This package exports no targets.
 
 
 ## Configuration variables
 
-This package provides the following configuration variables:
-
-```
-[bool] config.libimgui_platform_win32_examples.<VARIABLE> ?= false
-```
-
-<DESCRIPTION-OF-CONFIG-VARIABLES>
+This package provides no configuration variables.
