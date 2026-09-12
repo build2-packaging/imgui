@@ -32,4 +32,7 @@ location: libimgui-render-metal4/
 location: libimgui-platform-glfw-examples/
 
 :
+location: libimgui-platform-win32-examples/
+
+:
 location: libimgui-backend-null/
