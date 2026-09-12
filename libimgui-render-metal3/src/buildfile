@@ -1,6 +1,10 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
+
+import intf_libs += libimgui%lib{imgui}
+
+if ($cxx.target.class == 'macos')
+  import intf_libs += libmetal-cpp%lib{metal-cpp}
 
 # Public headers.
 #
@@ -14,7 +18,15 @@ lib{imgui-render-metal3}: $pub/{$pub_hdrs}
 
 # Private headers and sources as well as dependencies.
 #
-lib{imgui-render-metal3}: {hxx cxx}{**} $impl_libs $intf_libs
+lib{imgui-render-metal3}: {hxx cxx mm}{**} $impl_libs $intf_libs
+
+# Use the metal-cpp API (libmetal-cpp), consumers need the same macro.
+#
+if ($cxx.target.class == 'macos')
+{
+  cxx.poptions += -DIMGUI_IMPL_METAL_CPP
+  cxx.libs += -framework Metal -framework QuartzCore -framework Cocoa -framework Foundation
+}
 
 # Build options.
 #
@@ -22,9 +34,13 @@ out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
 out_pfx_src = [dir_path] $out_root/src/
 src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
 
 #obja{*}: cxx.poptions += -DLIBIMGUI_RENDER_METAL3_STATIC_BUILD
 #objs{*}: cxx.poptions += -DLIBIMGUI_RENDER_METAL3_SHARED_BUILD
@@ -33,12 +49,18 @@ cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
 #
 lib{imgui-render-metal3}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
   cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
 }
 
-#liba{imgui-render-metal3}: cxx.export.poptions += -DLIBIMGUI_RENDER_METAL3_STATIC
-#libs{imgui-render-metal3}: cxx.export.poptions += -DLIBIMGUI_RENDER_METAL3_SHARED
+if ($cxx.target.class == 'macos')
+{
+  lib{imgui-render-metal3}: cxx.export.poptions += -DIMGUI_IMPL_METAL_CPP
+  lib{imgui-render-metal3}: cxx.export.libs += -framework Metal -framework QuartzCore -framework Cocoa -framework Foundation
+}
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
