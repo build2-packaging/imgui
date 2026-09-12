@@ -1,0 +1,35 @@
+emscripten = ($cxx.target.system == 'emscripten')
+
+libs =
+import libs += libimgui-platform-glfw%lib{imgui-platform-glfw} \
+               libimgui-render-opengl3%lib{imgui-render-opengl3}
+
+# On Emscripten main.cpp includes <GLES2/gl2.h> (see imgui_impl_opengl3.h
+# for why it is OpenGL ES 2 there).
+#
+if $emscripten
+  import libs += libopengl-registry%lib{opengl-registry}
+
+# On Emscripten main.cpp also includes upstream's main loop stub.
+#
+./: exe{example-opengl3}: {hxx cxx}{**} \
+                          ../libs/emscripten/hxx{emscripten_mainloop_stub} \
+                          $libs
+
+# On Emscripten the example links into a .js plus .wasm pair, so also build
+# the page that loads it, from the shell upstream's Makefile.emscripten
+# passes as --shell-file. main.cpp renders into the page's #canvas.
+#
+./: file{example-opengl3.html}: include = $emscripten
+file{example-opengl3.html}: ../libs/emscripten/file{shell_minimal.html}
+{{
+  sed -e 's|\{\{\{ SCRIPT \}\}\}|<script async src="example-opengl3.js"></script>|' \
+    $path($<[0]) >$path($>)
+}}
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+# Upstream's Makefile.emscripten also lets the heap grow.
+#
+if $emscripten
+  exe{example-opengl3}: cxx.loptions += -sALLOW_MEMORY_GROWTH=1

@@ -34,6 +34,8 @@ glfw ^3.4.0
   accept ($config.glfw.build_x11 == ($cxx.target.class == 'linux' || $cxx.target.class == 'bsd'))
 }
 \
+examples: libimgui-platform-glfw-examples == $
+
 requires: c++11
 requires: clang ? ($cxx.target.class == 'macos')
 

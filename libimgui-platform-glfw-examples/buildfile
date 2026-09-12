@@ -1,1 +1,15 @@
-./: {*/ -build/} doc{README.md PACKAGE-README.md CHANGELOG.txt} legal{LICENSE.txt} manifest
+./: {*/ -build/ -metal3/ -vulkan/ -libs/} doc{README.md PACKAGE-README.md CHANGELOG.txt} legal{LICENSE.txt} manifest
+
+# The Metal 3 example needs a real GLFW-created Cocoa window bridged to a
+# CAMetalLayer, so it only makes sense on macOS.
+#
+./: metal3/: include = ($cxx.target.class == 'macos')
+
+# There is no Vulkan on Emscripten.
+#
+./: vulkan/: include = ($cxx.target.system != 'emscripten')
+
+# The examples are for trying out the backends from the build directory,
+# not for installing.
+#
+exe{*}: install = false
