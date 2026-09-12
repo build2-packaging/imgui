@@ -1,0 +1,16 @@
+: 1
+name: libimgui-platform-win32
+version: 0.1.0-a.0.z
+language: c++
+project: build2-imgui
+summary: imgui-platform-win32 C++ library
+license: MIT ; MIT License.
+description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG.txt
+url: https://example.org/upstream
+email: upstream@example.org
+package-url: https://github.com/build2-packaging/build2-imgui
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.18.0
+depends: * bpkg >= 0.18.0

@@ -3,3 +3,6 @@ location: libimgui/
 
 :
 location: libimgui-platform-glfw/
+
+:
+location: libimgui-platform-win32/
