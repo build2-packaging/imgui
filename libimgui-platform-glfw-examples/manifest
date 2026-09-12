@@ -1,17 +1,37 @@
 : 1
 name: libimgui-platform-glfw-examples
-version: 0.1.0-a.0.z
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
 type: exe
 language: c++
-project: build2-imgui
-summary: libimgui-platform-glfw-examples C++ executable
-license: MIT ; MIT License.
+language: objective-c++=impl
+project: imgui
+topics: glfw
+keywords: input windowing
+summary: Dear ImGui platform backend for GLFW, docking branch (examples)
+license: MIT
 description-file: README.md
 package-description-file: PACKAGE-README.md
 changes-file: CHANGELOG.txt
-url: https://example.org/upstream
-email: upstream@example.org
-package-url: https://github.com/build2-packaging/build2-imgui
+url: https://github.com/ocornut/imgui
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+package-url: https://github.com/build2-packaging/imgui
 package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
+depends: libimgui-platform-glfw == $
+depends: libimgui-render-opengl3 == $
+depends: libopengl-registry ~2026.8.3 ? ($cxx.target.system == 'emscripten') ; GLES headers.
+depends: libimgui-render-vulkan == $ ? ($cxx.target.system != 'emscripten')
+depends: libimgui-render-metal3 == $ ? ($cxx.target.class == 'macos')
+depends: libmoltenvk ^1.4.2 ? ($cxx.target.class == 'macos')
+
+requires: c++17
+requires: clang ? ($cxx.target.class == 'macos')
+
+build-exclude: freebsd** ; Requires X11 dev headers.
+build-exclude: **fedora** ; Requires X11 dev headers.
+build-exclude: macos*-gcc** ; Requires Clang (libmoltenvk/libmetal-cpp).
+build-exclude: windows**-static** ; Requires shared (libvulkan-loader).
