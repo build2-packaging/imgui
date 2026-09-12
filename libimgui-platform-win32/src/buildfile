@@ -1,6 +1,7 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
+
+import intf_libs += libimgui%lib{imgui}
 
 # Public headers.
 #
@@ -16,29 +17,52 @@ lib{imgui-platform-win32}: $pub/{$pub_hdrs}
 #
 lib{imgui-platform-win32}: {hxx cxx}{**} $impl_libs $intf_libs
 
+if ($cxx.target.class == 'windows')
+{
+  if ($cxx.target.system == 'mingw32')
+    win32_libs = -lgdi32 -ldwmapi
+  else
+    win32_libs = gdi32.lib dwmapi.lib
+
+  cxx.libs += $win32_libs
+}
+
 # Build options.
 #
 out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
 out_pfx_src = [dir_path] $out_root/src/
 src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
 
-#obja{*}: cxx.poptions += -DLIBIMGUI_PLATFORM_WIN32_STATIC_BUILD
-#objs{*}: cxx.poptions += -DLIBIMGUI_PLATFORM_WIN32_SHARED_BUILD
+# On Windows the backend's own declarations (imgui_impl_win32.h) use
+# IMGUI_IMPL_API, which imgui.h only defaults to IMGUI_API if it is not
+# already defined. Export them by defining it directly. The
+# IMGUI_API=dllimport inherited from libimgui's export options keeps
+# marking libimgui's own symbols.
+#
+if ($cxx.target.class == 'windows')
+  objs{*}: cxx.poptions += '-DIMGUI_IMPL_API=__declspec(dllexport)'
 
 # Export options.
 #
 lib{imgui-platform-win32}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
   cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
 }
 
-#liba{imgui-platform-win32}: cxx.export.poptions += -DLIBIMGUI_PLATFORM_WIN32_STATIC
-#libs{imgui-platform-win32}: cxx.export.poptions += -DLIBIMGUI_PLATFORM_WIN32_SHARED
+if ($cxx.target.class == 'windows')
+  lib{imgui-platform-win32}: cxx.export.libs += $win32_libs
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
