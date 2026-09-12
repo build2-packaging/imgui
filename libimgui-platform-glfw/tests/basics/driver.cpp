@@ -1,34 +1,22 @@
-#include <sstream>
-#include <stdexcept>
+#include <imgui/backends/imgui_impl_glfw.h>
 
-#include <imgui-platform-glfw.h>
+// Smoke test: ImGui_ImplGlfw_Sleep() is the only entry point that works
+// without a live GLFWwindow, which needs a display that a headless CI
+// environment does not have. The rest is only referenced: the test runs
+// without arguments so the branch is never taken, but the symbols still
+// have to resolve at link time.
 
-#undef NDEBUG
-#include <cassert>
-
-int main ()
+int main (int argc, char*[])
 {
-  using namespace std;
-  using namespace imgui_platform_glfw;
+  ImGui_ImplGlfw_Sleep (0);
 
-  // Basics.
-  //
+  if (argc > 1)
   {
-    ostringstream o;
-    say_hello (o, "World");
-    assert (o.str () == "Hello, World!\n");
-  }
-
-  // Empty name.
-  //
-  try
-  {
-    ostringstream o;
-    say_hello (o, "");
-    assert (false);
-  }
-  catch (const invalid_argument& e)
-  {
-    assert (e.what () == string ("empty name"));
+    ImGui_ImplGlfw_InitForOpenGL (nullptr, false);
+    ImGui_ImplGlfw_InitForVulkan (nullptr, false);
+    ImGui_ImplGlfw_InitForOther (nullptr, false);
+    ImGui_ImplGlfw_GetContentScaleForMonitor (nullptr);
+    ImGui_ImplGlfw_NewFrame ();
+    ImGui_ImplGlfw_Shutdown ();
   }
 }
