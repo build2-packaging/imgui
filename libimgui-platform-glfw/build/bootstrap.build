@@ -1,0 +1,7 @@
+project = libimgui-platform-glfw
+
+using version
+using config
+using test
+using install
+using dist
