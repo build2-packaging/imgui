@@ -4,7 +4,7 @@ This is a `build2` package for the [Dear ImGui](https://github.com/ocornut/imgui
 native macOS (Cocoa) platform (input/window) backend, built from its
 `docking` branch. It handles mouse, keyboard, gamepad, and window input for
 `libimgui` using AppKit directly, with no extra dependency. A renderer
-backend (for example `libimgui-render-metal`) is also needed.
+backend (for example `libimgui-render-metal3`) is also needed.
 The public header is `<imgui/backends/imgui_impl_osx.h>`.
 `#include <backends/imgui_impl_osx.h>` and `#include "imgui_impl_osx.h"` also work.
 
