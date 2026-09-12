@@ -1,0 +1,3 @@
+import libs = libimgui-render-vulkan%lib{imgui-render-vulkan}
+
+exe{driver}: {hxx cxx}{**} $libs testscript{**}

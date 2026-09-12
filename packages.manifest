@@ -9,3 +9,6 @@ location: libimgui-platform-win32/
 
 :
 location: libimgui-platform-osx/
+
+:
+location: libimgui-render-vulkan/
