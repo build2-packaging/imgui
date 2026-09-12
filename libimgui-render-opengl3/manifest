@@ -1,16 +1,26 @@
 : 1
 name: libimgui-render-opengl3
-version: 0.1.0-a.0.z
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
 language: c++
-project: build2-imgui
-summary: imgui-render-opengl3 C++ library
-license: MIT ; MIT License.
+project: imgui
+topics: opengl, rendering
+keywords: rendering graphics
+summary: Dear ImGui renderer backend for OpenGL 3, docking branch
+license: MIT
 description-file: README.md
 package-description-file: PACKAGE-README.md
 changes-file: CHANGELOG.txt
-url: https://example.org/upstream
-email: upstream@example.org
-package-url: https://github.com/build2-packaging/build2-imgui
+url: https://github.com/ocornut/imgui
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+package-url: https://github.com/build2-packaging/imgui
 package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
+depends: libimgui == $
+depends: libopengl-meta ^1.0.0 ; Platform GL library.
+depends: libopengl-registry ~2026.8.3 ? ($cxx.target.system == 'emscripten') ; GLES headers.
+
+requires: c++11
