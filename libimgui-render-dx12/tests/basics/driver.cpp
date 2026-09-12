@@ -1,34 +1,20 @@
-#include <sstream>
-#include <stdexcept>
+// Smoke test: every entry point needs a D3D12 device, so they are only
+// referenced: the test runs without arguments so the branch is never taken,
+// but the symbols still have to resolve at link time. CreateDeviceObjects()
+// is referenced to pull in CreateDXGIFactory1 (dxgi) and D3DCompile
+// (d3dcompiler).
 
-#include <imgui-render-dx12.h>
+#include <imgui/backends/imgui_impl_dx12.h>
 
-#undef NDEBUG
-#include <cassert>
-
-int main ()
+int main (int argc, char*[])
 {
-  using namespace std;
-  using namespace imgui_render_dx12;
-
-  // Basics.
-  //
+  if (argc > 1)
   {
-    ostringstream o;
-    say_hello (o, "World");
-    assert (o.str () == "Hello, World!\n");
-  }
-
-  // Empty name.
-  //
-  try
-  {
-    ostringstream o;
-    say_hello (o, "");
-    assert (false);
-  }
-  catch (const invalid_argument& e)
-  {
-    assert (e.what () == string ("empty name"));
+    ImGui_ImplDX12_InitInfo* info (nullptr);
+    ImGui_ImplDX12_Init (info);
+    ImGui_ImplDX12_CreateDeviceObjects ();
+    ImGui_ImplDX12_NewFrame ();
+    ImGui_ImplDX12_InvalidateDeviceObjects ();
+    ImGui_ImplDX12_Shutdown ();
   }
 }
