@@ -1,34 +1,23 @@
-#include <sstream>
-#include <stdexcept>
-
-#include <imgui-render-vulkan.h>
+#include <imgui/backends/imgui_impl_vulkan.h>
 
 #undef NDEBUG
 #include <cassert>
 
-int main ()
+// Smoke test: most entry points need a Vulkan instance or device, and
+// creating one fails on a machine without a Vulkan driver. So call a helper
+// that needs neither and only reference the rest: the test runs without
+// arguments so the branch is never taken, but the symbols still have to
+// resolve at link time.
+
+int main (int argc, char*[])
 {
-  using namespace std;
-  using namespace imgui_render_vulkan;
+  assert (ImGui_ImplVulkanH_GetMinImageCountFromPresentMode (
+            VK_PRESENT_MODE_FIFO_KHR) == 2);
 
-  // Basics.
-  //
+  if (argc > 1)
   {
-    ostringstream o;
-    say_hello (o, "World");
-    assert (o.str () == "Hello, World!\n");
-  }
-
-  // Empty name.
-  //
-  try
-  {
-    ostringstream o;
-    say_hello (o, "");
-    assert (false);
-  }
-  catch (const invalid_argument& e)
-  {
-    assert (e.what () == string ("empty name"));
+    ImGui_ImplVulkan_Init (nullptr);
+    ImGui_ImplVulkan_NewFrame ();
+    ImGui_ImplVulkan_Shutdown ();
   }
 }
