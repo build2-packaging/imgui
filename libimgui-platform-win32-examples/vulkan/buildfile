@@ -1,0 +1,7 @@
+libs =
+import libs += libimgui-platform-win32%lib{imgui-platform-win32} \
+               libimgui-render-vulkan%lib{imgui-render-vulkan}
+
+exe{example-vulkan}: {hxx cxx}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"

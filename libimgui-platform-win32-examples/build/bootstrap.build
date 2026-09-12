@@ -2,5 +2,6 @@ project = libimgui-platform-win32-examples
 
 using version
 using config
+using test
 using install
 using dist

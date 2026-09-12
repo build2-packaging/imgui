@@ -20,6 +20,7 @@ package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
 depends: libimgui == $
+examples: libimgui-platform-win32-examples == $
 
 requires: c++11
 
