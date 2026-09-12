@@ -1,6 +1,34 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
+
+import intf_libs += libimgui%lib{imgui}
+
+# The platform GL library (libGL, the OpenGL framework, opengl32 or
+# Emscripten's WebGL library) comes from libopengl-meta, which only sets the
+# linker flags. Replace it with a real package once libglvnd is packaged for
+# build2, the way libimgui-render-vulkan uses libvulkan-loader.
+#
+import intf_libs += libopengl-meta%lib{opengl-gl}
+
+# On Emscripten the backend uses OpenGL ES 2 and includes the GLES headers
+# from libopengl-registry instead of upstream's loader
+# (imgui_impl_opengl3_loader.h).
+#
+emscripten = ($cxx.target.system == 'emscripten')
+
+if $emscripten
+  import impl_libs += libopengl-registry%lib{opengl-registry}
+
+# Natively upstream's loader (imgui_impl_opengl3_loader.h) opens the GL
+# library at runtime, with dlopen() (libdl on older glibc) or with
+# LoadLibraryA() on Windows.
+#
+gl_sys_libs =
+if ($cxx.target.class == 'linux')
+  gl_sys_libs = -ldl
+
+if! $empty($gl_sys_libs)
+  cxx.libs += $gl_sys_libs
 
 # Public headers.
 #
@@ -22,23 +50,47 @@ out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
 out_pfx_src = [dir_path] $out_root/src/
 src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
 
-#obja{*}: cxx.poptions += -DLIBIMGUI_RENDER_OPENGL3_STATIC_BUILD
-#objs{*}: cxx.poptions += -DLIBIMGUI_RENDER_OPENGL3_SHARED_BUILD
+# On Windows the backend's own declarations (imgui_impl_opengl3.h) use
+# IMGUI_IMPL_API, which imgui.h only defaults to IMGUI_API if it is not
+# already defined. Export them by defining it directly. The
+# IMGUI_API=dllimport inherited from libimgui's export options keeps
+# marking libimgui's own symbols.
+#
+if ($cxx.target.class == 'windows')
+{
+  objs{*}: cxx.poptions += '-DIMGUI_IMPL_API=__declspec(dllexport)'
+
+  # Also export the GL3W_API surface of upstream's loader
+  # (imgui_impl_opengl3_loader.h): imgl3wGetProcAddress and the imgl3wProcs
+  # data.
+  #
+  objs{*}: cxx.poptions += '-DGL3W_API=__declspec(dllexport)'
+}
 
 # Export options.
 #
 lib{imgui-render-opengl3}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
   cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
 }
 
-#liba{imgui-render-opengl3}: cxx.export.poptions += -DLIBIMGUI_RENDER_OPENGL3_STATIC
-#libs{imgui-render-opengl3}: cxx.export.poptions += -DLIBIMGUI_RENDER_OPENGL3_SHARED
+if! $empty($gl_sys_libs)
+  lib{imgui-render-opengl3}: cxx.export.libs += $gl_sys_libs
+
+if ($cxx.target.class == 'windows')
+  libs{imgui-render-opengl3}: cxx.export.poptions += '-DGL3W_API=__declspec(dllimport)'
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
