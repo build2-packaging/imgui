@@ -1,0 +1,7 @@
+project = libimgui-render-dx12
+
+using version
+using config
+using test
+using install
+using dist
