@@ -7,3 +7,7 @@
 # Compilation database.
 #
 compile_commands.json
+
+# imgui
+#
+imgui.ini
