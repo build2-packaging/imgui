@@ -1,6 +1,7 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
+
+import intf_libs += libimgui%lib{imgui}
 
 # Public headers.
 #
@@ -14,7 +15,18 @@ lib{imgui-platform-osx}: $pub/{$pub_hdrs}
 
 # Private headers and sources as well as dependencies.
 #
-lib{imgui-platform-osx}: {hxx cxx}{**} $impl_libs $intf_libs
+lib{imgui-platform-osx}: {hxx cxx mm}{**} $impl_libs $intf_libs
+
+# __bridge_retained in imgui_impl_osx.mm retains only under ARC.
+# The other two flags silence upstream warnings that are not our bug:
+# a GNU ?: with the middle operand omitted, and a deprecated AppKit call.
+#
+if ($cxx.target.class == 'macos')
+{
+  cxx.coptions += -fobjc-arc -Wno-gnu-conditional-omitted-operand \
+                  -Wno-deprecated-declarations
+  cxx.libs += -framework Cocoa -framework Carbon -framework GameController
+}
 
 # Build options.
 #
@@ -22,9 +34,13 @@ out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
 out_pfx_src = [dir_path] $out_root/src/
 src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
 
 #obja{*}: cxx.poptions += -DLIBIMGUI_PLATFORM_OSX_STATIC_BUILD
 #objs{*}: cxx.poptions += -DLIBIMGUI_PLATFORM_OSX_SHARED_BUILD
@@ -33,12 +49,15 @@ cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
 #
 lib{imgui-platform-osx}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
   cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
 }
 
-#liba{imgui-platform-osx}: cxx.export.poptions += -DLIBIMGUI_PLATFORM_OSX_STATIC
-#libs{imgui-platform-osx}: cxx.export.poptions += -DLIBIMGUI_PLATFORM_OSX_SHARED
+if ($cxx.target.class == 'macos')
+  lib{imgui-platform-osx}: cxx.export.libs += -framework Cocoa -framework Carbon -framework GameController
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
