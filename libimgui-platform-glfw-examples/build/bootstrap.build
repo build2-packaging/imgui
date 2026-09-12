@@ -1,0 +1,6 @@
+project = libimgui-platform-glfw-examples
+
+using version
+using config
+using install
+using dist
