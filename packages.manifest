@@ -6,3 +6,6 @@ location: libimgui-platform-glfw/
 
 :
 location: libimgui-platform-win32/
+
+:
+location: libimgui-platform-osx/
