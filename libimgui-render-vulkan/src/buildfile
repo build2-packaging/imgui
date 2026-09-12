@@ -1,6 +1,14 @@
 intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
+
+import intf_libs += libimgui%lib{imgui}
+
+# There is no Vulkan on Emscripten.
+#
+vulkan = ($cxx.target.system != 'emscripten')
+
+if $vulkan
+  import intf_libs += libvulkan-loader%lib{vulkan}
 
 # Public headers.
 #
@@ -22,23 +30,40 @@ out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
 out_pfx_src = [dir_path] $out_root/src/
 src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
 
-#obja{*}: cxx.poptions += -DLIBIMGUI_RENDER_VULKAN_STATIC_BUILD
-#objs{*}: cxx.poptions += -DLIBIMGUI_RENDER_VULKAN_SHARED_BUILD
+# On Windows the backend's own declarations (imgui_impl_vulkan.h) use
+# IMGUI_IMPL_API, which imgui.h only defaults to IMGUI_API if it is not
+# already defined. Export them by defining it directly. The
+# IMGUI_API=dllimport inherited from libimgui's export options keeps
+# marking libimgui's own symbols.
+#
+if ($cxx.target.class == 'windows')
+  objs{*}: cxx.poptions += '-DIMGUI_IMPL_API=__declspec(dllexport)'
+
+# GCC false positive: ImVector::push_back()'s reserve()-then-memcpy
+# pattern (imgui.h) trips -Wstringop-overflow because GCC's escape
+# analysis can't see across the inlined reserve() call. Not a real bug.
+#
+if ($cxx.id == 'gcc')
+  cxx.coptions += -Wno-stringop-overflow
 
 # Export options.
 #
 lib{imgui-render-vulkan}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
   cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
 }
-
-#liba{imgui-render-vulkan}: cxx.export.poptions += -DLIBIMGUI_RENDER_VULKAN_STATIC
-#libs{imgui-render-vulkan}: cxx.export.poptions += -DLIBIMGUI_RENDER_VULKAN_SHARED
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
