@@ -1,17 +1,38 @@
 : 1
 name: libimgui-platform-win32-examples
-version: 0.1.0-a.0.z
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
 type: exe
 language: c++
-project: build2-imgui
-summary: libimgui-platform-win32-examples C++ executable
-license: MIT ; MIT License.
+project: imgui
+topics: win32
+keywords: windowing
+summary: Dear ImGui platform backend for native Win32, docking branch (examples)
+license: MIT
 description-file: README.md
 package-description-file: PACKAGE-README.md
 changes-file: CHANGELOG.txt
-url: https://example.org/upstream
-email: upstream@example.org
-package-url: https://github.com/build2-packaging/build2-imgui
+url: https://github.com/ocornut/imgui
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+package-url: https://github.com/build2-packaging/imgui
 package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
+depends: libimgui-platform-win32 == $
+depends: libimgui-render-opengl3 == $
+depends: libimgui-render-vulkan == $
+depends: libimgui-render-dx11 == $
+depends: libimgui-render-dx12 == $
+
+requires: c++11
+
+# Upstream's DirectX 12 example calls struct-returning COM methods (e.g.
+# GetCPUDescriptorHandleForHeapStart()) the MSVC way, while DirectX-Headers
+# declares them with an out pointer for non-MSVC compilers.
+#
+build-exclude: **mingw** ; Upstream DirectX 12 example is MSVC-only.
+build-exclude: windows**-static** ; Requires shared (libvulkan-loader).
+build-include: windows**
+build-exclude: ** ; Only supported on Windows.
