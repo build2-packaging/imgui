@@ -15,3 +15,6 @@ location: libimgui-render-vulkan/
 
 :
 location: libimgui-render-opengl3/
+
+:
+location: libimgui-render-metal3/
