@@ -26,8 +26,12 @@ src_pfx_src = [dir_path] $src_root/src/
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
                 "-I$out_pfx_inc" "-I$src_pfx_inc"
 
-#obja{*}: cxx.poptions += -DLIBIMGUI_STATIC_BUILD
-#objs{*}: cxx.poptions += -DLIBIMGUI_SHARED_BUILD
+# Export the API (functions and data, e.g., the GImGui pointer in
+# imgui_internal.h) from the DLL. IMGUI_API defaults to empty (see
+# imgui.h), so only override it for the shared build/import side.
+#
+if ($cxx.target.class == 'windows')
+  objs{*}: cxx.poptions += '-DIMGUI_API=__declspec(dllexport)'
 
 # Export options.
 #
@@ -36,9 +40,8 @@ lib{imgui}:
   cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
   cxx.export.libs = $intf_libs
 }
-
-#liba{imgui}: cxx.export.poptions += -DLIBIMGUI_STATIC
-#libs{imgui}: cxx.export.poptions += -DLIBIMGUI_SHARED
+if ($cxx.target.class == 'windows')
+  libs{imgui}: cxx.export.poptions += '-DIMGUI_API=__declspec(dllimport)'
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
