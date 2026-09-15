@@ -2,5 +2,6 @@ project = libimgui-platform-osx-examples
 
 using version
 using config
+using test
 using install
 using dist

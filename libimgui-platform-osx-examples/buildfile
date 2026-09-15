@@ -1,1 +1,6 @@
 ./: {*/ -build/} doc{README.md PACKAGE-README.md CHANGELOG.txt} legal{LICENSE.txt} manifest
+
+# The examples are for trying out the backends from the build directory,
+# not for installing.
+#
+exe{*}: install = false
