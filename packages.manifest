@@ -35,4 +35,7 @@ location: libimgui-platform-glfw-examples/
 location: libimgui-platform-win32-examples/
 
 :
+location: libimgui-platform-osx-examples/
+
+:
 location: libimgui-backend-null/
