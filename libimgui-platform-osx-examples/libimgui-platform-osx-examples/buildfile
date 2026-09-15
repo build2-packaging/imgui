@@ -1,6 +1,0 @@
-libs =
-#import libs += libhello%lib{hello}
-
-exe{libimgui-platform-osx-examples}: {hxx cxx}{**} $libs
-
-cxx.poptions =+ "-I$out_root" "-I$src_root"
