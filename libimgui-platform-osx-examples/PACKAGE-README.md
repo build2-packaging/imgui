@@ -1,45 +1,23 @@
-# libimgui-platform-osx-examples - An executable
+# libimgui-platform-osx-examples - Dear ImGui platform backend for native macOS (examples)
 
-This is a `build2` package for the [`<UPSTREAM-NAME>`](https://<UPSTREAM-URL>)
-executable. It is a <SUMMARY-OF-FUNCTIONALITY>.
+This is a `build2` package containing the example for the
+[Dear ImGui](https://github.com/ocornut/imgui) native macOS platform
+backend, built from its `docking` branch: `example_apple_metal`,
+unmodified from upstream. Its executable is named `example-osx-metal3`
+to tell it apart from `libimgui-platform-glfw-examples`'s own
+`example-metal3`.
 
-Note that the `libimgui-platform-osx-examples` executable in this package provides `build2` metadata.
-
-
-## Usage
-
-To start using `libimgui-platform-osx-examples` in your project, add the following build-time
-`depends` value to your `manifest`, adjusting the version constraint as
-appropriate:
-
-```
-depends: * libimgui-platform-osx-examples ^<VERSION>
-```
-
-Then import the executable in your `buildfile`:
-
-```
-import! [metadata] <TARGET> = libimgui-platform-osx-examples%exe{<TARGET>}
-```
+Upstream's own README for this example notes it predates the current
+Cocoa/Metal integration conventions used by the other examples and
+suggests `example_glfw_metal` or `example_sdl2_metal` for a more portable
+starting point.
 
 
 ## Importable targets
 
-This package provides the following importable targets:
-
-```
-exe{<TARGET>}
-```
-
-<DESCRIPTION-OF-IMPORTABLE-TARGETS>
+This package exports no targets.
 
 
 ## Configuration variables
 
-This package provides the following configuration variables:
-
-```
-[bool] config.libimgui_platform_osx_examples.<VARIABLE> ?= false
-```
-
-<DESCRIPTION-OF-CONFIG-VARIABLES>
+This package provides no configuration variables.
