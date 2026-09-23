@@ -2,6 +2,9 @@ intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 #import xxxx_libs += libhello%lib{hello}
 
+if $config.libimgui.freetype
+  import impl_libs += libfreetype%lib{freetype}
+
 # Public headers.
 #
 pub = [dir_path] ../include/
@@ -14,7 +17,9 @@ lib{imgui}: $pub/{$pub_hdrs}
 
 # Private headers and sources as well as dependencies.
 #
-lib{imgui}: {hxx cxx}{**} $impl_libs $intf_libs
+lib{imgui}: {hxx cxx}{** -imgui_freetype}
+lib{imgui}: cxx{imgui_freetype}: include = $config.libimgui.freetype
+lib{imgui}: $impl_libs $intf_libs
 
 # Build options.
 #
@@ -25,6 +30,14 @@ src_pfx_src = [dir_path] $src_root/src/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
                 "-I$out_pfx_inc" "-I$src_pfx_inc"
+
+# imgui_freetype.cpp includes "imgui_freetype.h" from its own directory.
+# imgui_draw.cpp includes "misc/freetype/imgui_freetype.h" via -I include/.
+#
+if $config.libimgui.freetype
+  cxx.poptions += -DIMGUI_ENABLE_FREETYPE \
+                  "-I$out_root/include/misc/freetype" \
+                  "-I$src_root/include/misc/freetype"
 
 # Export the API (functions and data, e.g., the GImGui pointer in
 # imgui_internal.h) from the DLL. IMGUI_API defaults to empty (see
@@ -40,6 +53,13 @@ lib{imgui}:
   cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
   cxx.export.libs = $intf_libs
 }
+
+# imgui_internal.h defines IMGUI_ENABLE_STB_TRUETYPE unless this macro is
+# already set, so consumers must see the same value as the library.
+#
+if $config.libimgui.freetype
+  lib{imgui}: cxx.export.poptions += -DIMGUI_ENABLE_FREETYPE
+
 if ($cxx.target.class == 'windows')
   libs{imgui}: cxx.export.poptions += '-DIMGUI_API=__declspec(dllimport)'
 

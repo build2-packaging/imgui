@@ -41,4 +41,8 @@ lib{imgui}
 
 ## Configuration variables
 
-This package provides no configuration variables.
+`config.libimgui.freetype`, `bool`, default `false`. Compile the FreeType
+font loader (`misc/freetype/imgui_freetype.cpp`), define
+`IMGUI_ENABLE_FREETYPE` for this library and its consumers, and install
+`<misc/freetype/imgui_freetype.h>`. Depends on `libfreetype ^2.11.1` when
+enabled.

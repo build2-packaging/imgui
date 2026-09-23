@@ -1,5 +1,9 @@
 #include <imgui.h>
 
+#ifdef IMGUI_ENABLE_FREETYPE
+#  include <misc/freetype/imgui_freetype.h>
+#endif
+
 #undef NDEBUG
 #include <cassert>
 
@@ -10,6 +14,10 @@
 int main ()
 {
   assert (ImGui::GetVersion () != nullptr);
+
+#ifdef IMGUI_ENABLE_FREETYPE
+  assert (ImGuiFreeType::GetFontLoader () != nullptr);
+#endif
 
   ImGuiContext* ctx (ImGui::CreateContext ());
   assert (ctx != nullptr);

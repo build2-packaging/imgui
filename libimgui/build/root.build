@@ -12,3 +12,8 @@ cxx{*}: extension = cpp
 # The test target for cross-testing (running tests under Wine, etc).
 #
 test.target = $cxx.target
+
+# Upstream leaves IMGUI_ENABLE_FREETYPE commented out in imconfig.h.
+# Enabling it selects the FreeType font loader instead of stb_truetype.
+#
+config [bool] config.libimgui.freetype ?= false

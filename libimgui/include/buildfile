@@ -1,6 +1,6 @@
-pub_hdrs = hxx{**}
+pub_hdrs = hxx{*}
 
-./: $pub_hdrs
+./: $pub_hdrs misc/
 
 # Install recreating subdirectories.
 #
