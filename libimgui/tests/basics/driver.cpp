@@ -7,6 +7,12 @@
 #undef NDEBUG
 #include <cassert>
 
+#ifdef IMGUI_USE_WCHAR32
+static_assert (sizeof (ImWchar) == sizeof (ImWchar32), "ImWchar is 32-bit");
+#else
+static_assert (sizeof (ImWchar) == sizeof (ImWchar16), "ImWchar is 16-bit");
+#endif
+
 // Smoke test for the core library. Does not require any platform or
 // renderer backend: exercises context creation, a frame, and a widget
 // call, then checks that draw data was produced.

@@ -46,3 +46,7 @@ font loader (`misc/freetype/imgui_freetype.cpp`), define
 `IMGUI_ENABLE_FREETYPE` for this library and its consumers, and install
 `<misc/freetype/imgui_freetype.h>`. Depends on `libfreetype ^2.11.1` when
 enabled.
+
+`config.libimgui.use_wchar32`, `bool`, default `false`. Define
+`IMGUI_USE_WCHAR32` for this library and its consumers. `ImWchar` becomes
+32-bit.
