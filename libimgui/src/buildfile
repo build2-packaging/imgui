@@ -27,17 +27,20 @@ out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
 out_pfx_src = [dir_path] $out_root/src/
 src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
 
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-                "-I$out_pfx_inc" "-I$src_pfx_inc"
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq"
 
 # imgui_freetype.cpp includes "imgui_freetype.h" from its own directory.
-# imgui_draw.cpp includes "misc/freetype/imgui_freetype.h" via -I include/.
+# imgui_draw.cpp includes "misc/freetype/imgui_freetype.h" via -I include/imgui/.
 #
 if $config.libimgui.freetype
   cxx.poptions += -DIMGUI_ENABLE_FREETYPE \
-                  "-I$out_root/include/misc/freetype" \
-                  "-I$src_root/include/misc/freetype"
+                  "-I$out_pfx_inc_unq/misc/freetype" \
+                  "-I$src_pfx_inc_unq/misc/freetype"
 
 # ImWchar is part of the installed imgui.h, so this macro is also exported.
 #
@@ -53,10 +56,15 @@ if ($cxx.target.class == 'windows')
 
 # Export options.
 #
+# include/ is the prefixed form (<imgui/imgui.h>). include/imgui/ is the
+# optional unqualified form ("imgui.h", <misc/freetype/imgui_freetype.h>).
+#
 lib{imgui}:
 {
-  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq"
   cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/
 }
 
 # imgui_internal.h defines IMGUI_ENABLE_STB_TRUETYPE unless this macro is

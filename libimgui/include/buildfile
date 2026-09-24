@@ -1,6 +1,6 @@
-pub_hdrs = hxx{*}
+pub_hdrs = hxx{**}
 
-./: $pub_hdrs misc/
+./: $pub_hdrs
 
 # Install recreating subdirectories.
 #
@@ -9,3 +9,8 @@ hxx{*}:
   install         = include/
   install.subdirs = true
 }
+
+# Only the enabled FreeType build installs this header.
+#
+if! $config.libimgui.freetype
+  imgui/misc/freetype/hxx{imgui_freetype}@imgui/misc/freetype/: install = false
