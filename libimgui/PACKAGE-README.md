@@ -47,6 +47,16 @@ font loader (`misc/freetype/imgui_freetype.cpp`), define
 `<imgui/misc/freetype/imgui_freetype.h>`. Depends on `libfreetype ^2.11.1` when
 enabled.
 
-`config.libimgui.use_wchar32`, `bool`, default `false`. Define
-`IMGUI_USE_WCHAR32` for this library and its consumers. `ImWchar` becomes
-32-bit.
+The following `bool` variables, all default `false`, enable the
+corresponding `imconfig.h` option by defining its macro for this library
+and its consumers:
+
+- `config.libimgui.disable`: `IMGUI_DISABLE`
+- `config.libimgui.disable_demo_windows`: `IMGUI_DISABLE_DEMO_WINDOWS`
+- `config.libimgui.disable_metrics_window`: `IMGUI_DISABLE_DEBUG_TOOLS`
+- `config.libimgui.disable_obsolete_functions`: `IMGUI_DISABLE_OBSOLETE_FUNCTIONS`
+- `config.libimgui.use_bgra_packed_color`: `IMGUI_USE_BGRA_PACKED_COLOR`
+- `config.libimgui.use_wchar32`: `IMGUI_USE_WCHAR32` (`ImWchar` becomes 32-bit)
+- `config.libimgui.use_32bit_indices`: `ImDrawIdx=unsigned int`
+- `config.libimgui.debug_highlight_all_id_conflicts`: `IMGUI_DEBUG_HIGHLIGHT_ALL_ID_CONFLICTS`
+  (upstream does not support it together with `disable_metrics_window`)

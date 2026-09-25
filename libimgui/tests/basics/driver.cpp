@@ -33,13 +33,12 @@ int main ()
   io.DisplaySize = ImVec2 (1920.0f, 1080.0f);
   io.DeltaTime = 1.0f / 60.0f;
 
-  // Build the default font atlas ourselves since there is no renderer
-  // backend to do it for us (that's normally its job).
+  // There is no renderer backend, so claim texture support the way a modern
+  // one does (as upstream's null backend does). The font atlas is then built
+  // on demand, without the legacy GetTexDataAsRGBA32() that is unavailable
+  // with IMGUI_DISABLE_OBSOLETE_FUNCTIONS.
   //
-  unsigned char* pixels;
-  int width, height;
-  io.Fonts->GetTexDataAsRGBA32 (&pixels, &width, &height);
-  assert (pixels != nullptr);
+  io.BackendFlags |= ImGuiBackendFlags_RendererHasTextures;
 
   ImGui::NewFrame ();
   ImGui::Begin ("Test");

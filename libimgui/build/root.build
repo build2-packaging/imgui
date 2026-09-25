@@ -13,9 +13,18 @@ cxx{*}: extension = cpp
 #
 test.target = $cxx.target
 
-# Upstream leaves these commented out in imconfig.h.
+# Upstream leaves these commented out in imconfig.h (see src/buildfile for
+# the macro each one defines).
+#
+config [bool] config.libimgui.disable                          ?= false
+config [bool] config.libimgui.disable_demo_windows             ?= false
+config [bool] config.libimgui.disable_metrics_window           ?= false
+config [bool] config.libimgui.disable_obsolete_functions       ?= false
+config [bool] config.libimgui.use_bgra_packed_color            ?= false
+config [bool] config.libimgui.use_wchar32                      ?= false
+config [bool] config.libimgui.use_32bit_indices                ?= false
+config [bool] config.libimgui.debug_highlight_all_id_conflicts ?= false
+
 # FreeType selects that font loader instead of stb_truetype.
-# WCHAR32 makes ImWchar 32-bit, so the macro is exported to consumers.
 #
 config [bool] config.libimgui.freetype ?= false
-config [bool] config.libimgui.use_wchar32 ?= false

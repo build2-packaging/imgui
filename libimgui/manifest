@@ -25,3 +25,11 @@ requires: c++11
 
 freetype-build-config: config.libimgui.freetype=true
 wchar32-build-config: config.libimgui.use_wchar32=true
+imconfig-build-config:
+\
+config.libimgui.disable_demo_windows=true
+config.libimgui.disable_metrics_window=true
+config.libimgui.disable_obsolete_functions=true
+config.libimgui.use_bgra_packed_color=true
+config.libimgui.use_32bit_indices=true
+\

@@ -42,10 +42,29 @@ if $config.libimgui.freetype
                   "-I$out_pfx_inc_unq/misc/freetype" \
                   "-I$src_pfx_inc_unq/misc/freetype"
 
-# ImWchar is part of the installed imgui.h, so this macro is also exported.
+# The imconfig.h options (see build/root.build). They change what the public
+# headers declare, so these macros are also exported.
 #
+imconfig_poptions =
+
+if $config.libimgui.disable
+  imconfig_poptions += -DIMGUI_DISABLE
+if $config.libimgui.disable_demo_windows
+  imconfig_poptions += -DIMGUI_DISABLE_DEMO_WINDOWS
+if $config.libimgui.disable_metrics_window
+  imconfig_poptions += -DIMGUI_DISABLE_DEBUG_TOOLS # Renamed upstream in 1.88.
+if $config.libimgui.disable_obsolete_functions
+  imconfig_poptions += -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS
+if $config.libimgui.use_bgra_packed_color
+  imconfig_poptions += -DIMGUI_USE_BGRA_PACKED_COLOR
 if $config.libimgui.use_wchar32
-  cxx.poptions += -DIMGUI_USE_WCHAR32
+  imconfig_poptions += -DIMGUI_USE_WCHAR32
+if $config.libimgui.use_32bit_indices
+  imconfig_poptions += '-DImDrawIdx=unsigned int'
+if $config.libimgui.debug_highlight_all_id_conflicts
+  imconfig_poptions += -DIMGUI_DEBUG_HIGHLIGHT_ALL_ID_CONFLICTS
+
+cxx.poptions += $imconfig_poptions
 
 # Export the API (functions and data, e.g., the GImGui pointer in
 # imgui_internal.h) from the DLL. IMGUI_API defaults to empty (see
@@ -73,8 +92,7 @@ lib{imgui}:
 if $config.libimgui.freetype
   lib{imgui}: cxx.export.poptions += -DIMGUI_ENABLE_FREETYPE
 
-if $config.libimgui.use_wchar32
-  lib{imgui}: cxx.export.poptions += -DIMGUI_USE_WCHAR32
+lib{imgui}: cxx.export.poptions += $imconfig_poptions
 
 if ($cxx.target.class == 'windows')
   libs{imgui}: cxx.export.poptions += '-DIMGUI_API=__declspec(dllimport)'
