@@ -22,6 +22,7 @@ package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
 depends: libimgui-render-metal3 == $
+depends: libimgui-render-metal4 == $ ? ($config.libimgui_platform_osx_examples.metal4)
 
 requires: c++17
 requires: clang ? ($cxx.target.class == 'macos')
