@@ -1,0 +1,20 @@
+--- imgui_impl_metal4.mm.orig	2026-11-11 14:00:42.356960401 +0100
++++ imgui_impl_metal4.mm	2026-11-11 14:01:09.836729912 +0100
+@@ -141,7 +141,7 @@
+                                    (__bridge id<MTL4RenderCommandEncoder>)(commandEncoder));
+ }
+ 
+-bool ImGui_ImplMetal_CreateDeviceObjects(MTL::Device* device)
++bool ImGui_ImplMetal4_CreateDeviceObjects(MTL::Device* device)
+ {
+     return ImGui_ImplMetal4_CreateDeviceObjects((__bridge id<MTLDevice>)(device));
+ }
+@@ -155,7 +155,7 @@
+     ImGui_ImplMetal4_Data* bd = ImGui_ImplMetal4_GetBackendData();
+     IM_ASSERT(bd != nil && "Context or backend not initialized! Did you call ImGui_ImplMetal4_Init()?");
+     IM_ASSERT(frameInFlightIndex < bd->SharedMetalContext.framesInFlight && "frameInFlightIndex out of range! See framesInFlight passed to ImGui_ImplMetal4_Init().");
+-#ifdef IMGUI_IMPL_METAL_CPP
++#if !__has_feature(objc_arc)
+     bd->SharedMetalContext.framebufferDescriptor = [[[FramebufferDescriptor alloc] initWithRenderPassDescriptor:renderPassDescriptor]autorelease];
+ #else
+     bd->SharedMetalContext.framebufferDescriptor = [[FramebufferDescriptor alloc] initWithRenderPassDescriptor:renderPassDescriptor];

@@ -28,6 +28,12 @@ if ($cxx.target.class == 'macos')
   cxx.libs += -framework Metal -framework QuartzCore -framework Cocoa -framework Foundation
 }
 
+# Upstream's metal-cpp mode only builds without ARC, where it leaks (see
+# imgui_impl_metal4.mm.patch, which lets it build with ARC).
+#
+if ($cxx.target.class == 'macos')
+  cxx.coptions += -fobjc-arc
+
 # Build options.
 #
 out_pfx_inc = [dir_path] $out_root/include/
