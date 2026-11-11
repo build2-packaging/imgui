@@ -1,4 +1,8 @@
-./: {*/ -build/} doc{README.md PACKAGE-README.md CHANGELOG.txt} legal{LICENSE.txt} manifest
+./: {*/ -build/ -metal4/} doc{README.md PACKAGE-README.md CHANGELOG.txt} legal{LICENSE.txt} manifest
+
+# The Metal 4 example requires the macOS 26 SDK and Apple Silicon.
+#
+./: metal4/: include = $config.libimgui_platform_osx_examples.metal4
 
 # The examples are for trying out the backends from the build directory,
 # not for installing.

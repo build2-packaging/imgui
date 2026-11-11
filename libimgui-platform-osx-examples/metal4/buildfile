@@ -1,0 +1,15 @@
+libs =
+import libs += libimgui-platform-osx%lib{imgui-platform-osx} \
+               libimgui-render-metal4%lib{imgui-render-metal4}
+
+exe{example-osx-metal4}: {hxx mm}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+# main.mm uses MetalKit (MTKView) directly.
+#
+cxx.libs += -framework MetalKit
+
+# Upstream builds its Metal examples with ARC.
+#
+cxx.coptions += -fobjc-arc
