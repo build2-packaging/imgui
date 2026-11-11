@@ -11,6 +11,7 @@ package per platform (input/window) and renderer backend:
 - [`libimgui-render-vulkan`](libimgui-render-vulkan/PACKAGE-README.md): Vulkan renderer backend
 - [`libimgui-render-opengl3`](libimgui-render-opengl3/PACKAGE-README.md): OpenGL 3(+) renderer backend
 - [`libimgui-render-metal3`](libimgui-render-metal3/PACKAGE-README.md): Metal 3 renderer backend, via `libmetal-cpp` (macOS-only)
+- [`libimgui-render-metal4`](libimgui-render-metal4/PACKAGE-README.md): Metal 4 renderer backend, via `libmetal-cpp` (macOS-only, requires the macOS 26 SDK and Apple Silicon)
 - [`libimgui-render-dx11`](libimgui-render-dx11/PACKAGE-README.md): Direct3D 11 renderer backend (Windows-only)
 - [`libimgui-render-dx12`](libimgui-render-dx12/PACKAGE-README.md): Direct3D 12 renderer backend, via `libdirectx-headers` (Windows-only)
 
