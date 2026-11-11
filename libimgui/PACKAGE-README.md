@@ -39,6 +39,13 @@ lib{imgui}
 ```
 
 
+## Extras
+
+`<imgui/misc/cpp/imgui_stdlib.h>` is installed and its implementation is
+built into `lib{imgui}`, so `ImGui::InputText()` and friends accept a
+`std::string*`.
+
+
 ## Configuration variables
 
 `config.libimgui.freetype`, `bool`, default `false`. Compile the FreeType

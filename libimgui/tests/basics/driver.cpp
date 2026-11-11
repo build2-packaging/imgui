@@ -1,4 +1,7 @@
 #include <imgui/imgui.h>
+#include <imgui/misc/cpp/imgui_stdlib.h>
+
+#include <string>
 
 #ifdef IMGUI_ENABLE_FREETYPE
 #  include <imgui/misc/freetype/imgui_freetype.h>
@@ -43,6 +46,8 @@ int main ()
   ImGui::NewFrame ();
   ImGui::Begin ("Test");
   ImGui::Text ("Hello, Dear ImGui!");
+  std::string text ("abc");
+  ImGui::InputText ("Input", &text);
   ImGui::End ();
   ImGui::Render ();
 

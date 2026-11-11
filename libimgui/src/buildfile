@@ -34,6 +34,10 @@ cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
                 "-I$out_pfx_inc" "-I$src_pfx_inc" \
                 "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq"
 
+# imgui_stdlib.cpp includes "imgui_stdlib.h" from its own directory.
+#
+cxx.poptions += "-I$out_pfx_inc_unq/misc/cpp" "-I$src_pfx_inc_unq/misc/cpp"
+
 # imgui_freetype.cpp includes "imgui_freetype.h" from its own directory.
 # imgui_draw.cpp includes "misc/freetype/imgui_freetype.h" via -I include/imgui/.
 #
