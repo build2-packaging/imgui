@@ -1,34 +1,18 @@
-#include <sstream>
-#include <stdexcept>
+// Smoke test: every entry point needs a D3D11 device, so they are only
+// referenced: the test runs without arguments so the branch is never taken,
+// but the symbols still have to resolve at link time. CreateDeviceObjects()
+// is referenced to pull in D3DCompile (d3dcompiler).
 
-#include <imgui-render-dx11.h>
+#include <imgui/backends/imgui_impl_dx11.h>
 
-#undef NDEBUG
-#include <cassert>
-
-int main ()
+int main (int argc, char*[])
 {
-  using namespace std;
-  using namespace imgui_render_dx11;
-
-  // Basics.
-  //
+  if (argc > 1)
   {
-    ostringstream o;
-    say_hello (o, "World");
-    assert (o.str () == "Hello, World!\n");
-  }
-
-  // Empty name.
-  //
-  try
-  {
-    ostringstream o;
-    say_hello (o, "");
-    assert (false);
-  }
-  catch (const invalid_argument& e)
-  {
-    assert (e.what () == string ("empty name"));
+    ImGui_ImplDX11_Init (nullptr, nullptr);
+    ImGui_ImplDX11_CreateDeviceObjects ();
+    ImGui_ImplDX11_NewFrame ();
+    ImGui_ImplDX11_InvalidateDeviceObjects ();
+    ImGui_ImplDX11_Shutdown ();
   }
 }
