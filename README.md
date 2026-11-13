@@ -14,6 +14,7 @@ package per platform (input/window) and renderer backend:
 - [`libimgui-render-metal4`](libimgui-render-metal4/PACKAGE-README.md): Metal 4 renderer backend, via `libmetal-cpp` (macOS-only, requires the macOS 26 SDK and Apple Silicon)
 - [`libimgui-render-dx11`](libimgui-render-dx11/PACKAGE-README.md): Direct3D 11 renderer backend (Windows-only)
 - [`libimgui-render-dx12`](libimgui-render-dx12/PACKAGE-README.md): Direct3D 12 renderer backend, via `libdirectx-headers` (Windows-only)
+- [`libimgui-backend-null`](libimgui-backend-null/PACKAGE-README.md): null platform and renderer backend, no input and no output (headless)
 
 Only modern, actively-maintained backends are packaged: no OpenGL 2, no DirectX
 9/10.
