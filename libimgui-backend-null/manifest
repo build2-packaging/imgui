@@ -1,16 +1,24 @@
 : 1
 name: libimgui-backend-null
-version: 0.1.0-a.0.z
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
 language: c++
-project: build2-imgui
-summary: imgui-backend-null C++ library
-license: MIT ; MIT License.
+project: imgui
+topics: headless, testing
+keywords: headless testing null
+summary: Dear ImGui null platform and renderer backend, docking branch
+license: MIT
 description-file: README.md
 package-description-file: PACKAGE-README.md
 changes-file: CHANGELOG.txt
-url: https://example.org/upstream
-email: upstream@example.org
-package-url: https://github.com/build2-packaging/build2-imgui
+url: https://github.com/ocornut/imgui
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+package-url: https://github.com/build2-packaging/imgui
 package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.18.0
 depends: * bpkg >= 0.18.0
+depends: libimgui == $
+
+requires: c++11
