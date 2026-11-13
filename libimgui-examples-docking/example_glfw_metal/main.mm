@@ -1,1 +1,0 @@
-../../upstream-docking/examples/example_glfw_metal/main.mm

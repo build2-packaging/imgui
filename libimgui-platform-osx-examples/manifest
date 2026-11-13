@@ -1,0 +1,32 @@
+: 1
+name: libimgui-platform-osx-examples
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
+type: exe
+language: c++
+language: objective-c++=impl
+project: imgui
+topics: macos
+keywords: cocoa windowing
+summary: Dear ImGui platform backend for native macOS, docking branch (examples)
+license: MIT
+description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG.txt
+url: https://github.com/ocornut/imgui
+doc-url: https://github.com/ocornut/imgui/wiki
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
+package-url: https://github.com/build2-packaging/imgui
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.18.0
+depends: * bpkg >= 0.18.0
+depends: libimgui-render-metal3 == $
+depends: libimgui-render-metal4 == $ ? ($config.libimgui_platform_osx_examples.metal4)
+
+requires: c++17
+requires: clang ? ($cxx.target.class == 'macos')
+
+build-exclude: macos*-gcc** ; Requires Clang (Objective-C++ ARC, libmetal-cpp).
+build-include: macos**
+build-exclude: ** ; Only supported on macOS.

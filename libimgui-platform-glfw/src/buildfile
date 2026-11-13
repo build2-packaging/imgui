@@ -1,0 +1,91 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+
+import intf_libs += libimgui%lib{imgui}
+
+# On Emscripten GLFW comes from the toolchain instead (see below).
+#
+emscripten = ($cxx.target.system == 'emscripten')
+
+if! $emscripten
+  import intf_libs += glfw%lib{glfw}
+
+# Public headers.
+#
+pub = [dir_path] ../include/
+
+include $pub
+
+pub_hdrs = $($pub/ pub_hdrs)
+
+lib{imgui-platform-glfw}: $pub/{$pub_hdrs}
+
+# Private headers and sources as well as dependencies.
+#
+lib{imgui-platform-glfw}: {hxx cxx}{**} $impl_libs $intf_libs
+
+# Build options.
+#
+out_pfx_inc = [dir_path] $out_root/include/
+src_pfx_inc = [dir_path] $src_root/include/
+out_pfx_src = [dir_path] $out_root/src/
+src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
+
+cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
+
+# Keep glfw3.h from including <GL/gl.h>, which the backend does not need
+# and which is missing on some platforms (FreeBSD).
+#
+cxx.poptions += -DGLFW_INCLUDE_NONE
+
+# On Windows the backend's own declarations (imgui_impl_glfw.h) use
+# IMGUI_IMPL_API, which imgui.h only defaults to IMGUI_API if it is not
+# already defined. Export them by defining it directly. The
+# IMGUI_API=dllimport inherited from libimgui's export options keeps
+# marking libimgui's own symbols.
+#
+if ($cxx.target.class == 'windows')
+  objs{*}: cxx.poptions += '-DIMGUI_IMPL_API=__declspec(dllexport)'
+
+# Export options.
+#
+lib{imgui-platform-glfw}:
+{
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
+  cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
+}
+
+# On Emscripten GLFW is the toolchain's contrib.glfw3 port, as upstream
+# recommends.
+#
+if $emscripten
+{
+  cxx.coptions += --use-port=contrib.glfw3
+  cxx.libs     += --use-port=contrib.glfw3
+  lib{imgui-platform-glfw}:
+  {
+    cxx.export.poptions += --use-port=contrib.glfw3
+    cxx.export.libs += --use-port=contrib.glfw3
+  }
+}
+
+# For pre-releases use the complete version to make sure they cannot
+# be used in place of another pre-release or the final version. See
+# the version module for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{imgui-platform-glfw}: bin.lib.version = "-$version.project_id"
+else
+  lib{imgui-platform-glfw}: bin.lib.version = "-$version.major.$version.minor"
+
+# Don't install private headers.
+#
+hxx{*}: install = false

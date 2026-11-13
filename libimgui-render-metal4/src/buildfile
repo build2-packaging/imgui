@@ -1,0 +1,82 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+
+import intf_libs += libimgui%lib{imgui}
+
+if ($cxx.target.class == 'macos')
+  import intf_libs += libmetal-cpp%lib{metal-cpp}
+
+# Public headers.
+#
+pub = [dir_path] ../include/
+
+include $pub
+
+pub_hdrs = $($pub/ pub_hdrs)
+
+lib{imgui-render-metal4}: $pub/{$pub_hdrs}
+
+# Private headers and sources as well as dependencies.
+#
+lib{imgui-render-metal4}: {hxx cxx mm}{**} $impl_libs $intf_libs
+
+# Use the metal-cpp API (libmetal-cpp), consumers need the same macro.
+#
+if ($cxx.target.class == 'macos')
+{
+  cxx.poptions += -DIMGUI_IMPL_METAL_CPP
+  cxx.libs += -framework Metal -framework QuartzCore -framework Cocoa -framework Foundation
+}
+
+# Upstream's metal-cpp mode only builds without ARC, where it leaks (see
+# imgui_impl_metal4.mm.patch, which lets it build with ARC).
+#
+if ($cxx.target.class == 'macos')
+  cxx.coptions += -fobjc-arc
+
+# Build options.
+#
+out_pfx_inc = [dir_path] $out_root/include/
+src_pfx_inc = [dir_path] $src_root/include/
+out_pfx_src = [dir_path] $out_root/src/
+src_pfx_src = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/imgui/
+src_pfx_inc_unq = [dir_path] $src_root/include/imgui/
+
+cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
+
+#obja{*}: cxx.poptions += -DLIBIMGUI_RENDER_METAL4_STATIC_BUILD
+#objs{*}: cxx.poptions += -DLIBIMGUI_RENDER_METAL4_SHARED_BUILD
+
+# Export options.
+#
+lib{imgui-render-metal4}:
+{
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq" \
+                        "-I$out_pfx_inc_unq/backends" "-I$src_pfx_inc_unq/backends"
+  cxx.export.libs = $intf_libs
+  cxx.pkgconfig.include = include/ include/imgui/ include/imgui/backends/
+}
+
+if ($cxx.target.class == 'macos')
+{
+  lib{imgui-render-metal4}: cxx.export.poptions += -DIMGUI_IMPL_METAL_CPP
+  lib{imgui-render-metal4}: cxx.export.libs += -framework Metal -framework QuartzCore -framework Cocoa -framework Foundation
+}
+
+# For pre-releases use the complete version to make sure they cannot
+# be used in place of another pre-release or the final version. See
+# the version module for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{imgui-render-metal4}: bin.lib.version = "-$version.project_id"
+else
+  lib{imgui-render-metal4}: bin.lib.version = "-$version.major.$version.minor"
+
+# Don't install private headers.
+#
+hxx{*}: install = false

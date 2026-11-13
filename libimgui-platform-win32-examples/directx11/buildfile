@@ -1,0 +1,7 @@
+libs =
+import libs += libimgui-platform-win32%lib{imgui-platform-win32} \
+               libimgui-render-dx11%lib{imgui-render-dx11}
+
+exe{example-directx11}: {hxx cxx}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"

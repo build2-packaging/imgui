@@ -1,0 +1,3 @@
+import libs = libimgui-platform-glfw%lib{imgui-platform-glfw}
+
+exe{driver}: {hxx cxx}{**} $libs testscript{**}

@@ -1,20 +1,35 @@
 : 1
 name: libimgui
-version: 1.92.3+3
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
+language: c++
 project: imgui
-summary: Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies
+topics: immediate mode, gui
+keywords: gui ui widgets docking
+summary: Immediate mode graphical user interface for C++ (docking branch)
 license: MIT
 description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG.txt
 url: https://github.com/ocornut/imgui
-email: contact@dearimgui.com
 doc-url: https://github.com/ocornut/imgui/wiki
-src-url : https://github.com/ocornut/imgui
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
 package-url: https://github.com/build2-packaging/imgui
-package-email: swat.somebug@gmail.com
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.18.0
+depends: * bpkg >= 0.18.0
+depends: libfreetype ^2.11.1 ? ($config.libimgui.freetype)
 
-depends: * build2 >= 0.17.0
-depends: * bpkg >= 0.17.0
+requires: c++11
 
-tests: libimgui-null-backend-test == $
-examples: libimgui-examples == $
-
+freetype-build-config: config.libimgui.freetype=true
+wchar32-build-config: config.libimgui.use_wchar32=true
+imconfig-build-config:
+\
+config.libimgui.disable_demo_windows=true
+config.libimgui.disable_metrics_window=true
+config.libimgui.disable_obsolete_functions=true
+config.libimgui.use_bgra_packed_color=true
+config.libimgui.use_32bit_indices=true
+\

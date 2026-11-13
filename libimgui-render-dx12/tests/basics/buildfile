@@ -1,0 +1,3 @@
+import libs = libimgui-render-dx12%lib{imgui-render-dx12}
+
+exe{driver}: {hxx cxx}{**} $libs testscript{**}

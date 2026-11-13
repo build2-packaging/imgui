@@ -1,82 +1,37 @@
-# imgui
+# imgui - Immediate mode graphical user interface for C++
 
-`build2` packages for the [`imgui`](https://github.com/ocornut/imgui) C++ GUI library.
+This is a `build2` package repository for [Dear ImGui](https://github.com/ocornut/imgui),
+built from its `docking` branch. It contains the core library plus one
+package per platform (input/window) and renderer backend:
 
-This package repository supports various `imgui` [backends](https://github.com/ocornut/imgui/blob/master/docs/BACKENDS.md) for platforms and rendering.
+- [`libimgui`](libimgui/PACKAGE-README.md): the core library
+- [`libimgui-platform-glfw`](libimgui-platform-glfw/PACKAGE-README.md): GLFW platform backend
+- [`libimgui-platform-win32`](libimgui-platform-win32/PACKAGE-README.md): native Win32 platform backend (Windows-only)
+- [`libimgui-platform-osx`](libimgui-platform-osx/PACKAGE-README.md): native macOS platform backend (macOS-only)
+- [`libimgui-render-vulkan`](libimgui-render-vulkan/PACKAGE-README.md): Vulkan renderer backend
+- [`libimgui-render-opengl3`](libimgui-render-opengl3/PACKAGE-README.md): OpenGL 3(+) renderer backend
+- [`libimgui-render-metal3`](libimgui-render-metal3/PACKAGE-README.md): Metal 3 renderer backend, via `libmetal-cpp` (macOS-only)
+- [`libimgui-render-metal4`](libimgui-render-metal4/PACKAGE-README.md): Metal 4 renderer backend, via `libmetal-cpp` (macOS-only, requires the macOS 26 SDK and Apple Silicon)
+- [`libimgui-render-dx11`](libimgui-render-dx11/PACKAGE-README.md): Direct3D 11 renderer backend (Windows-only)
+- [`libimgui-render-dx12`](libimgui-render-dx12/PACKAGE-README.md): Direct3D 12 renderer backend, via `libdirectx-headers` (Windows-only)
+- [`libimgui-backend-null`](libimgui-backend-null/PACKAGE-README.md): null platform and renderer backend, no input and no output (headless)
 
-## Usage
+Only modern, actively-maintained backends are packaged: no OpenGL 2, no DirectX
+9/10.
 
-Simply add the backend package which you want to use in your `manifest`.
-Note that you need to use at least one render and one platform backend, but projects can also depend on more than a single backend.
-If you want to link statically or dynamically against imgui make sure the core library and all backends you depend on us the same "mode". It is either all static or all dynamic.
+This file contains setup instructions and other details that are more
+appropriate for development rather than consumption. If you want to use
+one of these packages in your `build2`-based project, see its
+`PACKAGE-README.md` linked above instead.
 
-The following platform backend packages are available
+The development setup for `imgui` uses the standard `bdep`-based workflow.
+For example:
 
 ```
-depends: libimgui-platform-glfw
-depends: libimgui-platform-osx
-depends: libimgui-platform-win32
+git clone .../imgui.git
+cd imgui
 
-depends: libimgui-platform-glfw-docking
-depends: libimgui-platform-osx-docking
-depends: libimgui-platform-win32-docking
-```
-
-The following render backend packages are available
-
-```
-depends: libimgui-render-dx9
-depends: libimgui-render-dx10
-depends: libimgui-render-dx11
-depends: libimgui-render-dx12
-depends: libimgui-render-metal
-depends: libimgui-render-opengl2
-depends: libimgui-render-opengl3
-depends: libimgui-render-vulkan
-
-depends: libimgui-render-dx9-docking
-depends: libimgui-render-dx10-docking
-depends: libimgui-render-dx11-docking
-depends: libimgui-render-dx12-docking
-depends: libimgui-render-metal-docking
-depends: libimgui-render-opengl2-docking
-depends: libimgui-render-opengl3-docking
-depends: libimgui-render-vulkan-docking
-```
-
-Headers can be included with or without a `imgui/` prefix, for example:
-
-```c++
-// without prefix
-#include <imgui.h>
-#include <imgui_impl_opengl2.h>
-
-// with prefix
-#include <imgui/imgui.h>
-#include <imgui/backends/imgui_impl_opengl2.h>
-```
-
-See also the `libimgui-examples` or `libimgui-examples-docking` packages for examples on how to build executables with the package.
-
-## Configuration
-
-The following imgui configuration options are exposed as config variables via the [`libimgui`](./libimgui/build/root.build) and the [`libimgui docking`](./libimgui-docking/build/root.build) packages. Refer to [`imconfig.h`](https://github.com/ocornut/imgui/blob/master/imconfig.h) for documentation.
-```
-config.libimgui.disable
-config.libimgui.disable_demo_windows
-config.libimgui.disable_metrics_window
-config.libimgui.disable_obsolete_functions
-config.libimgui.use_bgra_packed_color
-config.libimgui.use_wchar32
-config.libimgui.use_32bit_indices
-config.libimgui.debug_highlight_all_id_conflicts
-
-config.libimgui_docking.disable
-config.libimgui_docking.disable_demo_windows
-config.libimgui_docking.disable_metrics_window
-config.libimgui_docking.disable_obsolete_functions
-config.libimgui_docking.use_bgra_packed_color
-config.libimgui_docking.use_wchar32
-config.libimgui_docking.use_32bit_indices
-config.libimgui_docking.debug_highlight_all_id_conflicts
+bdep init -C @gcc cc config.cxx=g++
+bdep update
+bdep test
 ```

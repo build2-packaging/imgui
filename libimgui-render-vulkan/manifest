@@ -1,18 +1,28 @@
 : 1
 name: libimgui-render-vulkan
-version: 1.92.3+3
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
+language: c++
 project: imgui
-summary: Dear ImGui render backend for Vulkan
+topics: vulkan, rendering
+keywords: rendering graphics
+summary: Dear ImGui renderer backend for Vulkan, docking branch
 license: MIT
 description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG.txt
 url: https://github.com/ocornut/imgui
-email: contact@dearimgui.com
 doc-url: https://github.com/ocornut/imgui/wiki
-src-url : https://github.com/ocornut/imgui
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
 package-url: https://github.com/build2-packaging/imgui
-package-email: swat.somebug@gmail.com
-
-depends: * build2 >= 0.17.0
-depends: * bpkg >= 0.17.0
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.18.0
+depends: * bpkg >= 0.18.0
 depends: libimgui == $
-depends: libvulkan-meta ^1.0.0
+depends: libvulkan-loader ^1.4.359 ? ($cxx.target.system != 'emscripten')
+
+requires: c++11
+
+build-exclude: windows**-static** ; Requires shared (libvulkan-loader).
+build-exclude: **emscripten** ; No Vulkan on Emscripten.

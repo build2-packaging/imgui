@@ -2,16 +2,16 @@
 #
 #cxx.internal.scope = current
 
-cxx.std = latest
+# Apple SDK headers use enum arithmetic that C++26 makes ill-formed.
+#
+using cxx.guess
+cxx.std = ($cxx.target.class == 'macos' ? 20 : latest)
 
 using cxx
+using cxx.objcxx
 
 hxx{*}: extension = h
 cxx{*}: extension = cpp
-
-# Assume headers are importable unless stated otherwise.
-#
-hxx{*}: cxx.importable = true
 
 # The test target for cross-testing (running tests under Wine, etc).
 #

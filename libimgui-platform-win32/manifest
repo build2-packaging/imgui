@@ -1,18 +1,28 @@
 : 1
 name: libimgui-platform-win32
-version: 1.92.3+3
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
+language: c++
 project: imgui
-summary: Dear ImGui platform backend for Win32
+topics: win32
+keywords: windowing
+summary: Dear ImGui platform backend for native Win32, docking branch
 license: MIT
 description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG.txt
 url: https://github.com/ocornut/imgui
-email: contact@dearimgui.com
 doc-url: https://github.com/ocornut/imgui/wiki
-src-url : https://github.com/ocornut/imgui
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
 package-url: https://github.com/build2-packaging/imgui
-package-email: swat.somebug@gmail.com
-
-builds: &( +windows -gcc )
-depends: * build2 >= 0.17.0
-depends: * bpkg >= 0.17.0
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.18.0
+depends: * bpkg >= 0.18.0
 depends: libimgui == $
+examples: libimgui-platform-win32-examples == $
+
+requires: c++11
+
+build-include: windows**
+build-exclude: ** ; Only supported on Windows.

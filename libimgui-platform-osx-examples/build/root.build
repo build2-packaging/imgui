@@ -1,0 +1,23 @@
+# Uncomment to suppress warnings coming from external libraries.
+#
+#cxx.internal.scope = current
+
+# Apple SDK headers use enum arithmetic that C++26 makes ill-formed.
+#
+using cxx.guess
+cxx.std = ($cxx.target.class == 'macos' ? 20 : latest)
+
+using cxx
+using cxx.objcxx
+
+hxx{*}: extension = h
+cxx{*}: extension = cpp
+
+# Enable the Metal 4 example by default on macOS 26 and later (Darwin 25+).
+# cxx.target.version is a string (25.0.0 from apple-darwin25.0.0) and build2
+# has no version type, so an untyped comparison is lexicographic (9.0.0 >= 25
+# would be true). Compare the Darwin major as uint64 instead.
+#
+config [bool] config.libimgui_platform_osx_examples.metal4 ?= \
+  ($cxx.target.class == 'macos' && \
+   [uint64] $front($regex.split($cxx.target.version, '\.', '')) >= 25)

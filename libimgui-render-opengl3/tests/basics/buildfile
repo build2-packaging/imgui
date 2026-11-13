@@ -1,0 +1,3 @@
+import libs = libimgui-render-opengl3%lib{imgui-render-opengl3}
+
+exe{driver}: {hxx cxx}{**} $libs testscript{**}

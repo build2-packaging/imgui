@@ -1,0 +1,33 @@
+libs =
+import libs += libimgui-platform-glfw%lib{imgui-platform-glfw} \
+               libimgui-render-vulkan%lib{imgui-render-vulkan}
+
+# On macOS the Vulkan loader has no ICD to enumerate unless MoltenVK is
+# wired up. Use MoltenVK's direct driver loading mode (its own recommended
+# integration) instead of relying on system-wide ICD search paths or
+# VK_DRIVER_FILES/VK_ICD_FILENAMES.
+#
+mvk_dylib =
+
+if ($cxx.target.class == 'macos')
+{
+  import libs += libmoltenvk%lib{mvk-direct-util}
+  import! [metadata, rule_hint=cxx.link] mvk_dylib = libmoltenvk%libs{MoltenVK}
+}
+
+exe{example-vulkan}: {hxx cxx}{**} $libs
+
+# CAMetalLayer for the MoltenVK surface in main.cpp, macOS only.
+#
+exe{example-vulkan}: mm{metal_surface}: include = ($cxx.target.class == 'macos')
+
+exe{example-vulkan}: $mvk_dylib: include = adhoc
+
+if ($cxx.target.class == 'macos')
+{
+  cxx.poptions += "-DAPP_USE_MOLTENVK_DIRECT_DRIVER" \
+                  "-DMVK_DYLIB_PATH=\"$posix_string($($mvk_dylib: libmoltenvk.dylib_path))\""
+  cxx.libs += -framework QuartzCore -framework Cocoa
+}
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"

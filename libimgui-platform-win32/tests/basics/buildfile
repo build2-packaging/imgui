@@ -1,0 +1,3 @@
+import libs = libimgui-platform-win32%lib{imgui-platform-win32}
+
+exe{driver}: {hxx cxx}{**} $libs testscript{**}

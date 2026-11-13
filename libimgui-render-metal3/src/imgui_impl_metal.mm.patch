@@ -1,0 +1,20 @@
+--- imgui_impl_metal.mm.orig	2026-11-11 14:00:42.356960401 +0100
++++ imgui_impl_metal.mm	2026-11-11 14:01:09.804730180 +0100
+@@ -151,7 +151,7 @@
+ {
+     ImGui_ImplMetal_Data* bd = ImGui_ImplMetal_GetBackendData();
+     IM_ASSERT(bd != nil && "Context or backend not initialized! Did you call ImGui_ImplMetal_Init()?");
+-#ifdef IMGUI_IMPL_METAL_CPP
++#if !__has_feature(objc_arc)
+     bd->SharedMetalContext.framebufferDescriptor = [[[FramebufferDescriptor alloc] initWithRenderPassDescriptor:renderPassDescriptor]autorelease];
+ #else
+     bd->SharedMetalContext.framebufferDescriptor = [[FramebufferDescriptor alloc] initWithRenderPassDescriptor:renderPassDescriptor];
+@@ -412,7 +412,7 @@
+     bd->SharedMetalContext.samplerStateNearest = [device newSamplerStateWithDescriptor:samplerDescriptor];
+ 
+     ImGui_ImplMetal_CreateDeviceObjectsForPlatformWindows();
+-#ifdef IMGUI_IMPL_METAL_CPP
++#if !__has_feature(objc_arc)
+     [samplerDescriptor release];
+     [depthStencilDescriptor release];
+ #endif

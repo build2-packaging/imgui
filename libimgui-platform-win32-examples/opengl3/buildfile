@@ -1,0 +1,7 @@
+libs =
+import libs += libimgui-platform-win32%lib{imgui-platform-win32} \
+               libimgui-render-opengl3%lib{imgui-render-opengl3}
+
+exe{example-opengl3}: {hxx cxx}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"

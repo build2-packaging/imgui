@@ -1,0 +1,11 @@
+libs =
+import libs += libimgui-platform-glfw%lib{imgui-platform-glfw} \
+               libimgui-render-metal3%lib{imgui-render-metal3}
+
+exe{example-metal3}: {hxx mm}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+# Upstream builds its Metal examples with ARC.
+#
+cxx.coptions += -fobjc-arc

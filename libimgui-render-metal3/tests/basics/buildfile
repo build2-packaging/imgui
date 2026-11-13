@@ -1,0 +1,3 @@
+import libs = libimgui-render-metal3%lib{imgui-render-metal3}
+
+exe{driver}: {hxx cxx}{**} $libs testscript{**}

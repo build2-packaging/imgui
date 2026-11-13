@@ -1,18 +1,32 @@
 : 1
 name: libimgui-platform-osx
-version: 1.92.3+3
+version: 1.93.0-a.0.z
+upstream-version: 1.93.0-docking
+language: c++
+language: objective-c++=impl
 project: imgui
-summary: Dear ImGui platform backend for OSX
+topics: macos
+keywords: cocoa windowing
+summary: Dear ImGui platform backend for native macOS, docking branch
 license: MIT
 description-file: README.md
+package-description-file: PACKAGE-README.md
+changes-file: CHANGELOG.txt
 url: https://github.com/ocornut/imgui
-email: contact@dearimgui.com
 doc-url: https://github.com/ocornut/imgui/wiki
-src-url : https://github.com/ocornut/imgui
+src-url: https://github.com/ocornut/imgui
+email: contact@dearimgui.com
 package-url: https://github.com/build2-packaging/imgui
-package-email: swat.somebug@gmail.com
-
-builds: &( +macos -gcc )
-depends: * build2 >= 0.17.0
-depends: * bpkg >= 0.17.0
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.18.0
+depends: * bpkg >= 0.18.0
 depends: libimgui == $
+
+examples: libimgui-platform-osx-examples == $
+
+requires: c++11
+requires: clang ? ($cxx.target.class == 'macos')
+
+build-exclude: macos*-gcc** ; Requires Clang (Objective-C++ ARC).
+build-include: macos**
+build-exclude: ** ; Only supported on macOS.
