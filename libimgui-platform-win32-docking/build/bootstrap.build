@@ -1,7 +1,0 @@
-project = libimgui-platform-win32-docking
-
-using version
-using config
-using test
-using install
-using dist

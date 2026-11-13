@@ -1,7 +1,0 @@
-project = libimgui-render-metal
-
-using version
-using config
-using test
-using install
-using dist
